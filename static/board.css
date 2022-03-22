@@ -1,0 +1,31 @@
+.nav {
+  margin-bottom: 300px;
+}
+
+.main_table {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.table {
+  width: 80%;
+  border: 1px solid black;
+  margin: 0 auto;
+}
+.main_table > button {
+  margin-top: 20px;
+}
+
+a:link {
+  color: white;
+  text-decoration: none;
+}
+a:visited {
+  color: white;
+  text-decoration: none;
+}
+a:hover {
+  font-weight: bolder;
+  text-decoration: none;
+}
