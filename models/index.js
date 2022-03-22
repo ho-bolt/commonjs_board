@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 
 const connect = () => {
-    mongoose.connect("mongodb://localhost:27017/sparta_blog", { ignoreUndefined: true }).catch((err) => {
+    mongoose.connect("mongodb://localhost:27017/spa_blog", { ignoreUndefined: true }).catch((err) => {
         console.log(err)
     });
     console.log("DB 연결! ")

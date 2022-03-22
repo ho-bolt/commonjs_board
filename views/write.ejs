@@ -8,15 +8,92 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
 integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-<link rel="stylesheet" href="write.css" type="text/css" />
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 crossorigin="anonymous"></script>
 
-<script src="/js/makeBoard.js"></script>
 <title>항해 99 블로그 작성페이지</title>
+
+<script>
+
+function writeBoard() {
+    let title = $('#title').val();
+    let userName = $('#userName').val()
+    let password = $('#password').val()
+    let content = $('#content').val()
+    console.log(1)
+    $.ajax({
+        type: "POST",
+        url: "/board",
+        data: {
+            title: title,
+            userName: userName,
+            password: password,
+            content: content
+        },
+        success: function (response) {
+            alert(response['msg'])
+            window.location.href = '/board'
+        }
+    })
+}
+
+function updateBoard(boardId) {
+    let title = $('#title').val()
+    let userName = $('#userName').val()
+    let password = $('#password').val()
+    let content = $('#content').val()
+
+
+    $.ajax({
+        type: "PUT",
+        url: "/board/" + boardId,
+        data: {
+            title,
+            userName,
+            password,
+            content
+        },
+        success: function (response) {
+            if (response['success'] === true) {
+                alert(response['msg'])
+                window.location.href = "/board"
+            } else {
+                alert(response['msg'])
+            }
+
+        }
+
+    })
+}
+
+function deleteBoard(boardId) {
+    let password = $('#password').val()
+    $.ajax({
+
+        type: "DELETE",
+        url: "/board/" + boardId,
+        data: { password },
+
+        success: function (response) {
+            if (response['success'] === true) {
+                alert(response['msg'])
+                window.location.href = '/board'
+               
+            } else {
+                alert(response['msg'])
+            }
+
+        }
+
+    })
+}
+
+
+</script>
 </head>
 
 <body>
@@ -52,7 +129,13 @@ crossorigin="anonymous"></script>
                         <input class="input" id="userName" type="text" placeholder="USER NAME" value="<%=board.userName %>">
                     </div>
                 </div>          
-                <button class="button is-primary">POST</button>
+                <div class="field">
+                    <label class="label">PASSWORD</label>
+                    <div class="control">
+                    <input class="input" id="password" type="password" placeholder="********">
+                    </div>
+                </div>
+               
             </form>
         </div>
 
@@ -93,12 +176,15 @@ crossorigin="anonymous"></script>
             </form>
         </div>
             <% }%>
+            <div class="btn_area">
     <% if(locals.board) {%>
-        <button type="button" class="btn btn-warning" form="write_board">수정완료</button>
-        <button type="button" class="btn btn-danger"onclick="delectBoard(<%=board.boardId%>)">삭제</button>
+       
+        <button type="submit" class="btn btn-warning" form="write_board">수정완료</button>
+        <button type="button" class="btn btn-danger"onclick="deleteBoard(<%=board.boardId%>)">삭제</button>
         <% }else { %>
-            <button type="button" class="btn btn-success">작성하기</button>
+            <button type="submit" class="btn btn-success" form="write_board">작성하기</button>       
         <%}%>
+    </div>
     </div>
 </body>
 

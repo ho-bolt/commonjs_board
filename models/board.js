@@ -2,9 +2,12 @@ const mongoose = require("mongoose")
 const autoIdSetter = require("./auto-id")
 
 const board = new mongoose.Schema({
-    boardId: {
-        type: Number, default: 1
-    },
+
+    // boardId: {
+    //     type: Number,
+    //     required: true,
+    //     unique: true,
+    // },
     title: {
         type: String,
         required: true,
@@ -28,5 +31,5 @@ const board = new mongoose.Schema({
 })
 
 autoIdSetter(board, mongoose, 'boards', 'boardId')
-console.log(typeof (boardId))
+
 module.exports = mongoose.model("Boards", board)

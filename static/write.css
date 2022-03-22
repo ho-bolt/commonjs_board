@@ -1,8 +1,13 @@
 .nav {
-  margin-bottom: 300px;
+  margin-bottom: 150px;
 }
 
 .write_form {
   margin: 0 auto;
-  width: 70%;
+  width: 700px;
+  height: 800px;
+}
+.btn_area {
+  display: flex;
+  text-align: center;
 }

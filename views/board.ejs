@@ -13,7 +13,7 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
 integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 crossorigin="anonymous"></script>
 
-<script src="/js/makeBoard.js"></script>
+
 
 
 <title>항해 99 블로그 </title>
@@ -40,7 +40,7 @@ crossorigin="anonymous"></script>
             <tbody>
                 <% boards.forEach(board => {%>        
                 <tr>
-                <th scope="row" onclick="location.href='/board/<%=boards.boardId %>'"><%=board.boardId %></th>
+                <th scope="row" onclick="location.href='/board/<%=board.boardId %>'"><%=board.boardId %></th>
                 <td><%= board.title %></td>
                 <td><%=board.userName %></td>
                 <td><%= board.date %></td>
