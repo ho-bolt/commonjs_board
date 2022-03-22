@@ -72,6 +72,7 @@ router.delete("/:boardId", async (req, res) => {
 // //게시글 상세 조회 
 router.get("/:boardId", async (req, res) => {
     const { boardId } = req.params;
+    //프론트에서 넘어온것
     const [board] = await Boards.find({ boardId: Number(boardId) })
 
     res.status(200).render('detail', {
@@ -89,6 +90,7 @@ router.get("/write/:boardId", async (req, res) => {
     const [board] = await Boards.find({ boardId: Number(boardId) })
     res.render('write', { board })
 });
+
 
 //게시글 수정 
 router.put("/:boardId", async (req, res) => {

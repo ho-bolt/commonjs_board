@@ -94,16 +94,49 @@ function deleteBoard(boardId) {
 
 
 </script>
+<style>
+.nav {
+    padding-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  margin-bottom: 100px;
+}
+
+.write_form {
+  margin: 0 auto;
+  width: 700px;
+  height: 800px;
+}
+.btn_area {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -180px;
+  
+}
+.btn-warning{
+    margin-right: 10px;
+}
+.nav_header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nav_header >h1{
+    font-weight: bold;
+}
+
+</style>
 </head>
 
 <body>
 
         <div class="nav">
-            <div> 
-                <h2>글쓰기</h2>
-            </div>
-           
-         
+            <div class="nav_header"> 
+              <h1> 글 쓰기 </h1>
+            </div>       
         </div>
         <!-- 첨 작성할 때  -->
         <%if(locals.board ) {%>
@@ -135,7 +168,6 @@ function deleteBoard(boardId) {
                     <input class="input" id="password" type="password" placeholder="********">
                     </div>
                 </div>
-               
             </form>
         </div>
 
@@ -176,7 +208,7 @@ function deleteBoard(boardId) {
             </form>
         </div>
             <% }%>
-            <div class="btn_area">
+         <div class="btn_area">
     <% if(locals.board) {%>
        
         <button type="submit" class="btn btn-warning" form="write_board">수정완료</button>
