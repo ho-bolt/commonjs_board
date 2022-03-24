@@ -4,138 +4,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+<link rel="stylesheet" href="/css/write.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
 integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 crossorigin="anonymous"></script>
+<script src="/js/write.js"></script>
 
 <title>항해 99 블로그 작성페이지</title>
 
-<script>
-
-function writeBoard() {
-    let title = $('#title').val();
-    let userName = $('#userName').val()
-    let password = $('#password').val()
-    let content = $('#content').val()
-
-    if(title==""||userName=="" || password==""||content==""){
-        alert("다 작성해주세요")
-        return
-    }
-    console.log(1)
-    $.ajax({
-        type: "POST",
-        url: "/board",
-        data: {
-            title: title,
-            userName: userName,
-            password: password,
-            content: content
-        },
-
-        
-        success: function (response) {
-            alert(response['msg'])
-            window.location.href = '/board'
-        }
-    })
-}
-
-function updateBoard(boardId) {
-    let title = $('#title').val()
-    let userName = $('#userName').val()
-    let password = $('#password').val()
-    let content = $('#content').val()
 
 
-    $.ajax({
-        type: "PUT",
-        url: "/board/" + boardId,
-        data: {
-            title,
-            userName,
-            password,
-            content
-        },
-        success: function (response) {
-            if (response['success'] === true) {
-                alert(response['msg'])
-                window.location.href = "/board"
-            } else {
-                alert(response['msg'])
-            }
-
-        }
-
-    })
-}
-
-function deleteBoard(boardId) {
-    let password = $('#password').val()
-    $.ajax({
-
-        type: "DELETE",
-        url: "/board/" + boardId,
-        data: { password },
-
-        success: function (response) {
-            if (response['success'] === true) {
-                alert(response['msg'])
-                window.location.href = '/board'
-               
-            } else {
-                alert(response['msg'])
-            }
-
-        }
-
-    })
-}
-
-
-</script>
-<style>
-.nav {
-    padding-top: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  margin-bottom: 100px;
-}
-
-.write_form {
-  margin: 0 auto;
-  width: 700px;
-  height: 800px;
-}
-.btn_area {
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: -180px;
-  
-}
-.btn-warning{
-    margin-right: 10px;
-}
-.nav_header{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.nav_header >h1{
-    font-weight: bold;
-}
-
-</style>
 </head>
 
 <body>

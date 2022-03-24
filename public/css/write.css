@@ -1,0 +1,31 @@
+.nav {
+  padding-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 100px;
+}
+
+.write_form {
+  margin: 0 auto;
+  width: 700px;
+  height: 800px;
+}
+.btn_area {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -180px;
+}
+.btn-warning {
+  margin-right: 10px;
+}
+.nav_header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.nav_header > h1 {
+  font-weight: bold;
+}

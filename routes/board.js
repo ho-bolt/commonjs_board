@@ -38,7 +38,6 @@ router.post("/", async (req, res) => {
     console.log("11")
     const hashedPw = bcrypt.hashSync(password, 10);
     const createBoards = await Boards.create({
-
         title,
         content,
         userName,

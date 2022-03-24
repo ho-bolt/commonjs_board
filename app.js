@@ -26,13 +26,11 @@ const requestMiddleware = (req, res, next) => {
 }
 
 //미들웨어 
-app.use(express.static('views'));
-app.use(express.static('static'));
+app.use(express.static("./views"));
+app.use(express.static(__dirname + '/public'));
 app.use(express.json());
 app.use(requestMiddleware);
-// 
 app.use(helmet({ contentSecurityPolicy: false }))
-console.log(helmet)
 app.use(express.urlencoded({ extended: false }))
 app.use(cors())
 // app.use('/static', express.static(path.join(__dirname, '../static')));
