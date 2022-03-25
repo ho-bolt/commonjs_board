@@ -3,7 +3,9 @@ const connect = require("./models")
 const helmet = require("helmet")
 const cors = require("cors")
 const app = express();
-const port = 3000;
+require('dotenv').config()
+
+
 
 //ejs 세팅 
 app.set('views', __dirname + '/views')
@@ -26,7 +28,7 @@ const requestMiddleware = (req, res, next) => {
 }
 
 //미들웨어 
-app.use(express.static("./views"));
+
 app.use(express.static(__dirname + '/public'));
 app.use(express.json());
 app.use(requestMiddleware);
@@ -46,6 +48,6 @@ app.get("/", (req, res) => {
 
 
 //3000포트 받음 
-app.listen(port, () => {
-    console.log(port, "서버 킴")
+app.listen(process.env.PORT, () => {
+    console.log("서버 킴")
 })
