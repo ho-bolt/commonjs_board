@@ -11,7 +11,7 @@ function writeBoard() {
     console.log(1)
     $.ajax({
         type: "POST",
-        url: "/board",
+        url: "/board/write",
         data: {
             title: title,
             userName: userName,

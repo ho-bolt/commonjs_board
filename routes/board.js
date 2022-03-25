@@ -23,10 +23,19 @@ router.get("/write", async (req, res) => {
     res.render('write')
 });
 
+//회원가입 페이지
+router.get("/join", async (req, res) => {
+    res.render('join')
+})
+
+//로그인 페이지
+router.get("/login", async (req, res) => {
+    res.render('login')
+})
 
 
 //게시글 작성 
-router.post("/", async (req, res) => {
+router.post("/write", async (req, res) => {
     const { title, content, userName, password } = req.body;
     // const maxboardId = await Boards.findOne().sort('-postId').exec();
     // const boardId = maxboardId ? maxboardId.boardId + 1 : 1;

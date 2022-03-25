@@ -1,30 +1,22 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>항해 99 로그인 페이지</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-<link rel="stylesheet" href="/css/detail.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-crossorigin="anonymous"></script>
-
-
-<title>항해 99 블로그 상세내용</title>
-
-
-
+    <link rel="stylesheet" href="/css/login.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
 </head>
-
 <body>
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">항해 블로그</a>
@@ -34,10 +26,10 @@ crossorigin="anonymous"></script>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#" onclick="location.href='/board/join'">회원가입</a>
+                <a class="nav-link active" aria-current="page" href="#">회원가입</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" onclick="location.href='/board/login'">로그인</a>
+                <a class="nav-link" href="#">로그인</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -61,36 +53,27 @@ crossorigin="anonymous"></script>
           </div>
         </div>
       </nav>
-        <div class="write_form">
-            <form class="box">
-                <div class="field">
-                <label class="label">TITLE</label>
+ 
+    <div class="login_form">
+        <form class="box" id="write_board" action="javascript:writeBoard()">
+            
+            <div class="field">
+                <label class="label">USERID</label>
                 <div class="control">
-                    <%= board.title %>
+                    <input class="input" id="userName" type="text" placeholder="USERId">
                 </div>
-                </div>
+            </div>
+        
 
-                <div class="field">
-                    <label class="label">CONTENT</label>
-                    <div class="control">
-                        <%=board.content%>
-                    </div>
+            <div class="field">
+                <label class="label">PASSWORD</label>
+                <div class="control">
+                <input class="input" id="password" type="password" placeholder="********">
                 </div>
-
-                <div class="field">
-                    <label class="label">USER NAME</label>
-                    <div class="control">
-                        <%=board.userName%>
-                    </div>
-                </div>
-                <button type="button" class="btn btn-warning" onclick="location.href='/board/write/<%=board.boardId%>'" >수정하기</button>
-                
-            </form>
+            </div>
+            <button class="button is-success">Login</button>
+        </form>
         </div>
-     
     </div>
 </body>
-
 </html>
-
-
