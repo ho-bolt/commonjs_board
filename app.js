@@ -47,7 +47,7 @@ app.get("/", (req, res) => {
 })
 
 
-//3000포트 받음 
+
 app.listen(process.env.PORT, () => {
     console.log("서버 킴")
 })

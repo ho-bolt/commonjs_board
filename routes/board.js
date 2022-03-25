@@ -27,15 +27,13 @@ router.get("/write", async (req, res) => {
 
 //게시글 작성 
 router.post("/", async (req, res) => {
-
-
     const { title, content, userName, password } = req.body;
     // const maxboardId = await Boards.findOne().sort('-postId').exec();
     // const boardId = maxboardId ? maxboardId.boardId + 1 : 1;
     console.log(title, content, userName, password)
 
     const date = moment().format("YYYY-MM-DD HH:mm");
-    console.log("11")
+
     const hashedPw = bcrypt.hashSync(password, 10);
     const createBoards = await Boards.create({
         title,
