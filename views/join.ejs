@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>항해 99 로그인 페이지</title>
 
-    <link rel="stylesheet" href="/css/login.css">
+     <!-- <link rel="stylesheet" href="/css/login.css">  -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-    
+    <link rel="stylesheet" href="/css/login.css">
+    <script src="/js/join.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -55,19 +56,19 @@
       </nav>
  
     <div class="login_form">
-        <form class="box" id="write_board" action="javascript:writeBoard()">
+        <form class="box" id="join_board" action="javascript:joinBoard()">
             
             <div class="field">
-                <label class="label">USERID</label>
+                <label class="label">USER EMAIL</label>
                 <div class="control">
-                    <input class="input" id="userName" type="text" placeholder="USERId">
+                    <input class="input" id="userEmail" type="email" placeholder="USER MAIL">
                 </div>
             </div>
-
+            
             <div class="field">
-                <label class="label">USERNAME</label>
+                <label class="label">NICKNAME</label>
                 <div class="control">
-                    <input class="input" id="userName" type="text" placeholder="USERId">
+                    <input class="input" id="nickName" type="text" placeholder="NICKNAME">
                 </div>
             </div>
         
@@ -81,10 +82,10 @@
             <div class="field">
                 <label class="label">CONFIRM PASSWORD</label>
                 <div class="control">
-                <input class="input" id="password" type="password" placeholder="********">
+                <input class="input" id="confirmPassword" type="password" placeholder="********">
                 </div>
             </div>
-            <button class="button is-success">JOIN</button>
+            <button class="button is-success" form="join_board">JOIN</button>
         </form>
         </div>
     </div>

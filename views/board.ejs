@@ -8,11 +8,21 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
 integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/board.css">
+<script src="/js/api.js"></script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 crossorigin="anonymous"></script>
 
+<script>
+ let user;
+      getSelf(function (u) {
+        user = u;
+      });
+
+      
+</script>
 
 
 
@@ -29,10 +39,10 @@ crossorigin="anonymous"></script>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#" onclick="location.href='/board/join'">회원가입</a>
+                <button class="nav-link active" aria-current="page"  onclick="location.href='/users/join'">회원가입</button>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" onclick="location.href='/board/login'">로그인</a>
+                <button class="nav-link"  onclick="location.href='/users/auth'">로그인</button>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -73,7 +83,7 @@ crossorigin="anonymous"></script>
                 <% boards.forEach(board => { %>        
                 <tr>
                 <th scope="row" ><%=board.boardId %></th>
-                <<td class="board_title" onclick="location.href='/board/<%=board.boardId %>'"><%= board.title %></td>
+                <td class="board_title" onclick="location.href='/board/<%=board.boardId %>'"><%= board.title %></td>
                 <td><%=board.userName %></td>
                 <td><%= board.date %></td>
             </tr>

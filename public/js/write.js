@@ -19,7 +19,6 @@ function writeBoard() {
             content: content
         },
 
-
         success: function (response) {
             alert(response['msg'])
             window.location.href = '/board'
@@ -68,12 +67,9 @@ function deleteBoard(boardId) {
             if (response['success'] === true) {
                 alert(response['msg'])
                 window.location.href = '/board'
-
             } else {
                 alert(response['msg'])
             }
-
         }
-
     })
 }

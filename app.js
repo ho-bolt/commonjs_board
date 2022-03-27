@@ -2,6 +2,7 @@ const express = require("express");
 const connect = require("./models")
 const helmet = require("helmet")
 const cors = require("cors")
+
 const app = express();
 require('dotenv').config()
 
@@ -18,7 +19,7 @@ connect();
 
 //라우터
 const boardRouter = require("./routes/board");
-
+const userRouter = require("./routes/user")
 
 
 // request미들웨어
@@ -26,6 +27,8 @@ const requestMiddleware = (req, res, next) => {
     console.log("Request URL: ", req.originalUrl, "- ", new Date());
     next();
 }
+
+
 
 //미들웨어 
 
@@ -37,11 +40,13 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cors())
 // app.use('/static', express.static(path.join(__dirname, '../static')));
 app.use("/board", [boardRouter])
+app.use("/users", [userRouter])
+
 
 // app.use('/ejs에서접근할경로', express.static(path.join(__dirname, ' /실제위치한디렉토리경로')));  
 
 
-//  /로 들어오는 애들을 /board로 바꾼다.
+//  /로 들어오면 /board로 가게 해라
 app.get("/", (req, res) => {
     res.redirect('/board')
 })

@@ -1,12 +1,82 @@
 const express = require("express")
 const moment = require("moment")
 const bcrypt = require('bcrypt')
+const Joi = require("joi")
+const User = require("../models/users");
 //게시판 모델
 const Boards = require("../models/board");
 
 
+
 //라우터 생성
 const router = express.Router();
+
+
+
+
+//유저관련
+
+//회원가입 페이지
+router.get("/users/join", async (req, res) => {
+    res.render('join')
+})
+
+
+const postUsersSchema = Joi.object({
+    userEmail: Joi.string().required(),
+    nickName: Joi.string().required(),
+    password: Joi.string().required(),
+    confirmPassword: Joi.string().required()
+})
+
+
+router.post("/users/join", async (req, res) => {
+    try {
+
+        const { userEmail, nickName, password, confirmPassword } = await postUsersSchema.validateAsync(req.body);
+        console.log(userEmail, nickName, password, confirmPassword)
+
+        if (password !== confirmPassword) {
+            res.status(400).json({
+                success: false, msg: "비밀번호가 일치하지 않습니다."
+            });
+            return;
+        }
+        const existUsers = await User.find({
+            $or: [{ userEmail }, { nickName }],
+        });
+        if (existUsers.length) {
+            res.status(400).json({
+                success: false, msg: "이미 가입된 이메일이나 닉네임이 있습니다."
+            });
+            return
+        }
+        const user = new User({ userEmail, nickName, password });
+        await user.save()
+        res.status(201).json({ success: true, msg: "회원가입 완료!" });
+    } catch (err) {
+        console.log(err);
+        res.status(400).json({
+            success: false, msg: "요청한 값이 틀립니다."
+        });
+    };
+});
+
+
+
+
+
+
+
+//로그인 페이지
+router.get("/users/login", async (req, res) => {
+    res.render('login')
+})
+
+
+
+
+
 
 
 // /board가 들어온다
@@ -23,15 +93,6 @@ router.get("/write", async (req, res) => {
     res.render('write')
 });
 
-//회원가입 페이지
-router.get("/join", async (req, res) => {
-    res.render('join')
-})
-
-//로그인 페이지
-router.get("/login", async (req, res) => {
-    res.render('login')
-})
 
 
 //게시글 작성 
