@@ -16,7 +16,7 @@ module.exports = (req, res, next) => {
     //복호화 되면 유효한 토큰
     console.log("토큰 검증")
     try {
-        const { userId } = jwt.verify(tokenValue, "my-key");
+        const { userId } = jwt.verify(tokenValue, process.env.SECERTKEY);
         console.log(userId)
         //db에서 해당 userId와 맞는 유저 찾아서 그 유저를 locals에 넣어준다.
         User.findById(userId).exec().then((user) => {

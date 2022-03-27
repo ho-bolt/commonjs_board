@@ -86,7 +86,7 @@ router.post("/auth", async (req, res) => {
     }
     res.send({
         success: true, msg: "로그인성공",
-        token: jwt.sign({ userId: user.userId }, "my-key")
+        token: jwt.sign({ userId: user.userId }, process.env.SECERTKEY)
     });
 });
 
