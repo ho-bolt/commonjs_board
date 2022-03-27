@@ -24,16 +24,6 @@ router.get("/auth", async (req, res) => {
     res.render('auth')
 })
 
-//로그인 인증
-router.get("/auth/me", authMiddleware, async (req, res) => {
-    console.log("옴")
-    console.log(res.locals)
-    res.send({ user: res.locals.user });
-})
-
-
-
-
 
 // const postUsersSchema = Joi.object({
 //     userEmail: Joi.string().required(),
@@ -63,7 +53,9 @@ router.post("/join", async (req, res) => {
         });
         return;
     }
-    const user = new User({ userEmail, nickName, password });
+    const hashedPw = bcrypt.hashSync(password, 10);
+
+    const user = new User({ userEmail, nickName, password: hashedPw });
     await user.save()
     res.status(201).json({ success: true, msg: "회원가입 완료!" })
 })
@@ -75,19 +67,27 @@ router.post("/join", async (req, res) => {
 
 router.post("/auth", async (req, res) => {
     const { userEmail, password } = req.body;
+    const decodedPassword = await User.findOne({ userEmail }).then((val) => { return val.password })
 
-    const user = await User.findOne({ userEmail });
-
-    if (!user || password !== user.password) {
+    if (!bcrypt.compareSync(password, decodedPassword)) {
         res.json({
             success: false, msg: "이메일 또는 비밀번호가 틀렸습니다.",
         });
         return;
     }
-    res.send({
-        success: true, msg: "로그인성공",
-        token: jwt.sign({ userId: user.userId }, process.env.SECERTKEY)
+    const user = await User.findOne({ userEmail });
+    //토큰 생성
+    const token = jwt.sign({ userId: user.userNum }, process.env.SECERTKEY)
+    res.status(201).send({
+        success: true, token, msg: "로그인성공",
     });
+});
+
+//사용자 검증
+router.get("/auth/me", authMiddleware, async (req, res) => {
+    console.log("옴")
+    console.log(res.locals)
+    res.send({ user: res.locals.user });
 });
 
 
