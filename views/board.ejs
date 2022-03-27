@@ -24,6 +24,7 @@ crossorigin="anonymous"></script>
       let user;
       getSelf(function (u) {
         user = u;
+        console.log(user)
       });
 
       function getSelf(callback) {
@@ -34,6 +35,14 @@ crossorigin="anonymous"></script>
                  authorization: `Bearer ${localStorage.getItem("token")}`,
              },
              success: function (response) {
+                 if(response['success']===true){
+                    let temp_html=`
+                  <div class="d-flex">
+                        <button class="btn btn-outline-success" onclick="logout()">logout</button>
+                        </div>`
+                 $("#nav_blog").append(temp_html)
+                 }
+                 
                  callback(response.user);
              },
              error: function (xhr, status, error) {

@@ -3,6 +3,7 @@ const moment = require("moment")
 const bcrypt = require('bcrypt')
 const User = require("../models/users")
 const jwt = require("jsonwebtoken");
+const userValid = require("../helpers/userValid")
 const authMiddleware = require("../middlewares/auth-middleware")
 const Joi = require("joi")
 
@@ -33,7 +34,7 @@ router.get("/auth", async (req, res) => {
 // })
 
 //회원가입
-router.post("/join", async (req, res) => {
+router.post("/join", userValid.PostUser, async (req, res) => {
     const { userEmail, nickName, password, confirmPassword } = req.body;
     //비번 확인
     if (password !== confirmPassword) {
@@ -87,7 +88,7 @@ router.post("/auth", async (req, res) => {
 router.get("/auth/me", authMiddleware, async (req, res) => {
     console.log("옴")
     console.log(res.locals)
-    res.send({ user: res.locals.user });
+    res.send({ user: res.locals.user, success: true, });
 });
 
 
