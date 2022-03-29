@@ -25,7 +25,13 @@ crossorigin="anonymous"></script>
 <style>
   
 </style>
+<script>
+    $(document).ready(function(){
+            $("#input_update_comment").hide()
+             
+    })
 
+</script>
   
 
 <body>
@@ -62,15 +68,24 @@ crossorigin="anonymous"></script>
                 <button type="button" class="button is-link comment" onclick="comment('<%=board.boardId%>')">댓글달기</button>
                 <input class="input" id="content" type="text" placeholder="Text input">
             </form>
+
+            <div class="input-group mb-3" id="input_update_comment">   
+                <input type="text" class="form-control" id="comment-content" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                <button class="btn btn-outline-secondary" type="button" id="updated_comment" onclick="getCommentId()">수정완료</button>
+              </div>
+            
             <div class="comment_box contanier">  
                 <% comments.forEach(comment=>{ %>       
-                <div class="box">
+                <div class="box" id="comment-box">
                     <%=comment.nickName%> : 
-                   <%=comment.content %>               
-                   <button class="button is-success is-light box_btn">수정</button>
-                   <button class="button is-danger is-light box_btn">삭제</button>
+                   <%=comment.content %>                   
+                  
+                        <button class="button is-success is-light box_btn" onclick="open_input(),sendId('<%=comment.commentId%>')">수정</button>  
+                   <button type="button" class="button is-danger is-light box_btn" onclick="delete_comment('<%=comment.commentId %>','<%=comment.boardId%>')">삭제</button>
                   </div>
+                
                 <% })%>
+               
             </div>
         </div>
         

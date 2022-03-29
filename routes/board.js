@@ -50,32 +50,40 @@ router.get("/write", async (req, res) => {
 // //게시글 삭제
 router.delete("/:boardId", async (req, res) => {
     const { boardId } = req.params;
-    const { password } = req.body;
-    const [board] = await Boards.find({ boardId: Number(boardId) })
 
-    if (bcrypt.compareSync(password, board.password)) {
-        await Boards.deleteOne({ boardId: Number(boardId) })
-        return res.status(200).json({ msg: "게시글 삭제완료!", success: true })
-    } else {
-        return res.json({ msg: "비밀번호가 틀립니다", success: false })
-    }
+    // const [board] = await Boards.find({ boardId: Number(boardId) })
+    await Boards.deleteOne({ boardId: Number(boardId) })
+    return res.status(200).json({ msg: "게시글 삭제완료!", success: true })
 
 });
 
-// router.get("/:boardId", async (req, res) => {
-//     const { authorization } = req.headers;
-//     console.log("66666666666", authorization)
+//댓글 삭제
+router.delete("/comment/:commentId", async (req, res) => {
+    const { commentId } = req.params;
+    console.log("commenttttttttttt", commentId)
+    await Comment.deleteOne({ commentId: Number(commentId) })
+    return res.status(200).json({ msg: "댓글 삭제!", success: true })
+})
+
+
+// //게시글 수정 
+// router.put("/:boardId", async (req, res) => {
 //     const { boardId } = req.params;
-//     const [board] = await Boards.find({ boardId: Number(boardId) })
+//     const { title, content } = req.body;
+//     const date = moment().format("YYYY-MM-DD HH:mm");
+//     const [existBoard] = await Boards.find({ boardId: Number(boardId) })
 
-//     if (authorization) {
-//         res.status(200).render('edit', { success: true, board })
-//     } else {
+//     await Boards.updateOne({ boardId: Number(boardId) }, { $set: { title, content, date } })
+//     return res.status(201).json({ msg: "수정 완료!", success: true })
+// });
 
-//     }
+//댓글 수정 
+router.put("/comment/:commentId", async (req, res) => {
+    const { commentId } = req.params;
 
 
-// })
+})
+
 
 // //게시글 상세 조회 
 //넘길때 boardNickname을 같이 넘긴다면,
@@ -91,14 +99,24 @@ router.get("/:boardId", async (req, res) => {
     });
 });
 
+//댓글 수정
+router.patch("/comment/:cid", async (req, res) => {
+    const { cid } = req.params;
+    console.log("ddddddddd", cid)
+    const { content } = req.body;
+    console.log("수정commmmmmm", content)
+    const date = moment().format("YYYY-MM-DD HH:mm");
 
+    await Comment.updateOne({ commentId: Number(cid) }, { $set: { content, date } })
+    return res.json({ msg: "수정 완료!", success: true })
+
+})
 
 
 
 // //수정하기로 가기 
 router.get("/write/:boardId", async (req, res) => {
     const { boardId } = req.params
-
     const [board] = await Boards.find({ boardId: Number(boardId) })
     res.render('write', { board })
 });
