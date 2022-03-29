@@ -1,21 +1,23 @@
 function writeBoard() {
+
+
     let title = $('#title').val();
-    let userName = $('#userName').val()
-    let password = $('#password').val()
     let content = $('#content').val()
 
-    if (title == "" || userName == "" || password == "" || content == "") {
+    if (title == "" || content == "") {
         alert("다 작성해주세요")
         return
     }
-    console.log(1)
+
     $.ajax({
         type: "POST",
         url: "/board/write",
+        headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
         data: {
+
             title: title,
-            userName: userName,
-            password: password,
             content: content
         },
 
@@ -25,6 +27,7 @@ function writeBoard() {
         }
     })
 }
+
 
 function updateBoard(boardId) {
     let title = $('#title').val()
@@ -70,6 +73,29 @@ function deleteBoard(boardId) {
             } else {
                 alert(response['msg'])
             }
+        }
+    })
+}
+
+
+
+function write_auth(boardId) {
+    $.ajax({
+        type: "GET",
+        url: "/board/auth",
+        headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        success: function (response) {
+            let nickName = response['nickname']
+            let userNum = response['userNum']
+            if (boardId == undefined) boardId = ''
+            let txt = nickName + "&" + userNum + "&" + boardId
+            window.location.href = `/board/write/${txt}`
+        },
+        error: function (xhr, status, error) {
+            alert("로그인 먼저 하세요!")
+            window.location.href = "/auth"
         }
     })
 }

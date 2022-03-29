@@ -3,6 +3,11 @@ const autoIdSetter = require("./auto-id")
 
 const board = new mongoose.Schema({
 
+    // userNum: {
+    //     type: Number,
+    //     required: true
+    // },
+
     title: {
         type: String,
         required: true,
@@ -11,11 +16,11 @@ const board = new mongoose.Schema({
         type: String,
         required: true,
     },
-    userName: {
-        type: String,
+    userId: {
+        type: Number,
         required: true,
     },
-    password: {
+    nickName: {
         type: String,
         required: true,
     },

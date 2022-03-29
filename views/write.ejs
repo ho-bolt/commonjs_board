@@ -17,13 +17,49 @@ crossorigin="anonymous"></script>
 
 <title>항해 99 블로그 작성페이지</title>
 
+<script>
+   
+   $(document).ready(function(){    
+            if (localStorage.length !== 0){
+                getSelf()
+            }else{
+                alert('로그인 먼저 하세요!')
+                window.location.href = "/users/auth";
+            }
+            
+        })
+        
 
+        //  사용자 인증 요청
+        function getSelf() {
+            $.ajax({
+                type: "GET",
+                url: "/users/auth/me",
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem("token")}`,
+                        },
+                success: function (response) {
+                    },
+                error: function (xhr, status, error) {
+                    if (status === 401) {
+                        alert(response['msg']);
+                    } else {
+                        localStorage.clear();
+                        alert("알 수 없는 문제가 발생했습니다. 관리자에게 문의하세요 write.");
+                    }
+                    window.location.href = "/users/auth";
+                    },
+                });
+                }
+
+
+</script>
 
 </head>
 
 <body>
 
-    
+    <%- include('header.ejs')%>
        
         <!-- 첨 작성할 때  -->
         <%if(locals.board ) {%>
@@ -41,20 +77,8 @@ crossorigin="anonymous"></script>
                     <div class="control">
                         <textarea class="textarea" id="content"  rows="10"><%= board.content %></textarea>
                     </div>
-                </div>
-
-                <div class="field">
-                    <label class="label">USER NAME</label>
-                    <div class="control">
-                        <input class="input" id="userName" type="text" placeholder="USER NAME" value="<%=board.userName %>">
-                    </div>
-                </div>          
-                <div class="field">
-                    <label class="label">PASSWORD</label>
-                    <div class="control">
-                    <input class="input" id="password" type="password" placeholder="********">
-                    </div>
-                </div>
+                </div>                      
+            
             </form>
         </div>
 
@@ -77,20 +101,7 @@ crossorigin="anonymous"></script>
                     </div>
                 </div>
 
-                <div class="field">
-                    <label class="label">USER NAME</label>
-                    <div class="control">
-                        <input class="input" id="userName" type="text" placeholder="USER NAME">
-                    </div>
-                </div>
-            
-
-                <div class="field">
-                    <label class="label">PASSWORD</label>
-                    <div class="control">
-                    <input class="input" id="password" type="password" placeholder="********">
-                    </div>
-                </div>
+              
 
             </form>
         </div>

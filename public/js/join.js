@@ -54,7 +54,7 @@ function joinBoard() {
             console.log("eee")
             if (response['success'] === true) {
                 alert(response['msg'])
-                window.location.href = '/board'
+                window.location.href = '/users/auth'
             }
             else {
                 alert(response['msg'])

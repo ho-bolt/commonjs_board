@@ -11,37 +11,90 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
 integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 crossorigin="anonymous"></script>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav_blog">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">항해 블로그</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-         
-          <li class="nav-item">
-          
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-             
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            </ul>
-          </li>
-          <li class="nav-item">
+<script>
+  //토큰이 있으면 사용자 검증 
+  let user
+  $(document).ready(function(u){    
+              if (localStorage.length !== 0){
+                  getSelf(u)
+                  user = u;
+              }
+              
+          })
+  
+        function getSelf(callback) {
+           $.ajax({
+               type: "GET",
+               url: "/users/auth/me",
+               headers: {
+                   authorization: `Bearer ${localStorage.getItem("token")}`,
+               },
+               success: function (response) {
+                   if(response['success']===true){
+                      let temp_html=`
+                      <div class="buttons">       
+                          <button class="button is-light" onclick="logout()">
+                              Log out
+                          </button>
+                      </div>
+                              `
+                   $("#navbar-buttons").replaceWith(temp_html)
+                   
+                   }
+                   console.log("response 객체 ",response.user.nickName)
+                   callback(response.user)
+                                    
+               },
+               error: function (xhr, status, error) {
+                   if (status == 401) {
+                       alert("로그인이 필요합니다.");
+                   } else {
+                       localStorage.clear();
+                       alert("알 수 없는 문제가 발생했습니다. board.");
+                   }
+                  //  window.location.href = "/";
+               },
+           });
+       }
+       function logout() {
+    localStorage.clear()
+    window.location.href = "/board"
+}
+  </script>
 
-          </li>
-        </ul>           
-        <div class="d-flex">
-          <button class="btn btn-outline-success" aria-current="page"  onclick="location.href='/users/join'">회원가입</button>
-        </div>
-        <div class="d-flex">
-          <button class="btn btn-outline-success"  onclick="location.href='/users/auth'">로그인</button>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation" id="nav-header">
+    <div class="navbar-brand">
+      <a class="navbar-item" onclick="'/board'">
+       항해 블로그
+      </a>
+  
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+  
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
+      
+      </div>
+  
+      <div class="navbar-end">
+        <div class="navbar-item">
+
+          <div class="buttons" id="navbar-buttons">
+            <button id="sign_up" class="button is-primary" onclick="location.href='/users/join'">
+              <strong>Sign up</strong>
+            </button>
+            <button id="log_in" class="button is-light" onclick="location.href='/users/auth'">
+              Log in
+            </button>
+          </div>
+          
         </div>
       </div>
     </div>
   </nav>
 
-  

@@ -22,9 +22,24 @@ crossorigin="anonymous"></script>
 
 <title>항해 99 블로그 상세내용</title>
 
-<style>
-  
-</style>
+<script>
+//     function checkNickName(boardId){
+
+// $.ajax({
+//     type: "GET",
+//     url: "/board/"+boardId,
+//     headers: {
+//         authorization: `Bearer ${localStorage.getItem("token")}`,
+//     },
+//     success: function (response) {
+//         alert(response['msg'])
+//         window.location.href = '/board'
+//     }
+// })
+
+// }
+
+</script>
 
   
 
@@ -55,25 +70,16 @@ crossorigin="anonymous"></script>
                     </div>
                 </div>
 
+                    
                 <button type="button" class="btn btn-warning" onclick="location.href='/board/write/<%=board.boardId%>'" >수정하기</button>
+               
 
             </form>
             <form name="comment_post" method="post" action="">
-                <button type="button" class="button is-link comment" onclick="comment('<%=board.boardId%>')">댓글달기</button>
-                <input class="input" id="content" type="text" placeholder="Text input">
+                <button type="button" class="button is-link comment" onclick="comment()">댓글달기</button>
+                <input class="input" id="comment_box" type="text" placeholder="Text input">
             </form>
-            <div class="comment_box contanier">  
-                <% comments.forEach(comment=>{ %>       
-                <div class="box">
-                    <%=comment.nickName%> : 
-                   <%=comment.content %>               
-                   <button class="button is-success is-light box_btn">수정</button>
-                   <button class="button is-danger is-light box_btn">삭제</button>
-                  </div>
-                <% })%>
-            </div>
         </div>
-        
 
         
     </div>

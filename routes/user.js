@@ -5,7 +5,8 @@ const User = require("../models/users")
 const jwt = require("jsonwebtoken");
 const userValid = require("../helpers/userValid")
 const authMiddleware = require("../middlewares/auth-middleware")
-const Joi = require("joi")
+
+const key = process.env.SECERTKEY
 
 
 //라우터 생성
@@ -26,12 +27,7 @@ router.get("/auth", async (req, res) => {
 })
 
 
-// const postUsersSchema = Joi.object({
-//     userEmail: Joi.string().required(),
-//     nickName: Joi.string().required(),
-//     password: Joi.string().required(),
-//     confirmPassword: Joi.string().required()
-// })
+
 
 //회원가입
 router.post("/join", userValid.PostUser, async (req, res) => {
@@ -76,9 +72,11 @@ router.post("/auth", async (req, res) => {
         });
         return;
     }
+    //입력한 이메일을 db에서 찾아서 user에 넣어줘
     const user = await User.findOne({ userEmail });
+
     //토큰 생성
-    const token = jwt.sign({ userId: user.userNum }, process.env.SECERTKEY)
+    const token = jwt.sign({ userId: user.userNum }, key)
     res.status(201).send({
         success: true, token, msg: "로그인성공",
     });
@@ -86,8 +84,8 @@ router.post("/auth", async (req, res) => {
 
 //사용자 검증
 router.get("/auth/me", authMiddleware, async (req, res) => {
-    console.log("옴")
-    console.log(res.locals)
+
+    console.log("ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ", res.locals.user)
     res.send({ user: res.locals.user, success: true, });
 });
 

@@ -2,7 +2,7 @@ const express = require("express");
 const connect = require("./models")
 const helmet = require("helmet")
 const cors = require("cors")
-
+const cookieParser = require("cookie-parser")
 const app = express();
 require('dotenv').config()
 
@@ -34,6 +34,7 @@ const requestMiddleware = (req, res, next) => {
 
 app.use(express.static(__dirname + '/public'));
 app.use(express.json());
+
 app.use(requestMiddleware);
 app.use(helmet({ contentSecurityPolicy: false }))
 app.use(express.urlencoded({ extended: false }))
