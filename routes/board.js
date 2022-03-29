@@ -66,27 +66,9 @@ router.delete("/comment/:commentId", async (req, res) => {
 })
 
 
-// //게시글 수정 
-// router.put("/:boardId", async (req, res) => {
-//     const { boardId } = req.params;
-//     const { title, content } = req.body;
-//     const date = moment().format("YYYY-MM-DD HH:mm");
-//     const [existBoard] = await Boards.find({ boardId: Number(boardId) })
-
-//     await Boards.updateOne({ boardId: Number(boardId) }, { $set: { title, content, date } })
-//     return res.status(201).json({ msg: "수정 완료!", success: true })
-// });
-
-//댓글 수정 
-router.put("/comment/:commentId", async (req, res) => {
-    const { commentId } = req.params;
-
-
-})
 
 
 // //게시글 상세 조회 
-//넘길때 boardNickname을 같이 넘긴다면,
 
 router.get("/:boardId", async (req, res) => {
 
@@ -102,11 +84,8 @@ router.get("/:boardId", async (req, res) => {
 //댓글 수정
 router.patch("/comment/:cid", async (req, res) => {
     const { cid } = req.params;
-    console.log("ddddddddd", cid)
     const { content } = req.body;
-    console.log("수정commmmmmm", content)
     const date = moment().format("YYYY-MM-DD HH:mm");
-
     await Comment.updateOne({ commentId: Number(cid) }, { $set: { content, date } })
     return res.json({ msg: "수정 완료!", success: true })
 
@@ -147,7 +126,7 @@ router.get("/auth", authMiddleware, async (req, res) => {
 router.post("/write", async (req, res) => {
     const { authorization } = req.headers
     const { title, content } = req.body;
-    console.log("@@@@@@@", authorization)
+
     const date = moment().format("YYYY-MM-DD HH:mm");
 
     const { userId } = jwt.verify(authorization.split(" ")[1], key);

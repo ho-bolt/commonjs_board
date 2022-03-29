@@ -21,24 +21,6 @@ function comment(boardId) {
     })
 }
 
-// function deleteBoard(boardId) {
-//     let password = $('#password').val()
-//     $.ajax({
-
-//         type: "DELETE",
-//         url: "/board/" + boardId,
-//         data: { password },
-
-//         success: function (response) {
-//             if (response['success'] === true) {
-//                 alert(response['msg'])
-//                 window.location.href = '/board'
-//             } else {
-//                 alert(response['msg'])
-//             }
-//         }
-//     })
-// }
 
 function delete_comment(commentId, boardId) {
     $.ajax({
@@ -60,11 +42,6 @@ function delete_comment(commentId, boardId) {
 
 }
 
-
-// function update_comment(commentId) {
-//     localStorage.setItem()
-// }
-
 function sendId(commentId) {
     localStorage.setItem("commentId", commentId);
 
@@ -75,7 +52,7 @@ function getCommentId() {
 }
 
 function open_input() {
-    $("#input_update_comment").show();
+    $("#input_update_comment").toggle();
 }
 
 

@@ -26,10 +26,10 @@ crossorigin="anonymous"></script>
   
 </style>
 <script>
-    $(document).ready(function(){
-            $("#input_update_comment").hide()
+    // $(document).ready(function(){
+    //         $("#input_update_comment").hide()
              
-    })
+    // })
 
 </script>
   
@@ -78,19 +78,16 @@ crossorigin="anonymous"></script>
                 <% comments.forEach(comment=>{ %>       
                 <div class="box" id="comment-box">
                     <%=comment.nickName%> : 
-                   <%=comment.content %>                   
+                   <%=comment.content %>   : 
+                   <%=comment.date%>
                   
                         <button class="button is-success is-light box_btn" onclick="open_input(),sendId('<%=comment.commentId%>')">수정</button>  
                    <button type="button" class="button is-danger is-light box_btn" onclick="delete_comment('<%=comment.commentId %>','<%=comment.boardId%>')">삭제</button>
                   </div>
                 
                 <% })%>
-               
             </div>
         </div>
-        
-
-        
     </div>
 </body>
 

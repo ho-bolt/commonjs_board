@@ -15,8 +15,6 @@ function authBoard() {
             if (response['success'] === true) {
                 localStorage.setItem("token", response['token']);
                 console.log(response['token'])
-                // $.cookie('user', response.token, { path: '/auth' })
-
                 alert(response['msg'])
                 window.location.replace("/board");
             } else {

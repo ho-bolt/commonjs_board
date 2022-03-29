@@ -87,11 +87,11 @@ function write_auth(boardId) {
             authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         success: function (response) {
-            let nickName = response['nickname']
-            let userNum = response['userNum']
-            if (boardId == undefined) boardId = ''
-            let txt = nickName + "&" + userNum + "&" + boardId
-            window.location.href = `/board/write/${txt}`
+            // let nickName = response['nickname']
+            // let userNum = response['userNum']
+            // if (boardId == undefined) boardId = ''
+            // let txt = nickName + "&" + userNum + "&" + boardId
+            // window.location.href = `/board/write/${txt}`
         },
         error: function (xhr, status, error) {
             alert("로그인 먼저 하세요!")

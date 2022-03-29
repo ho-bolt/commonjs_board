@@ -1,37 +1,5 @@
 
 
-// function sign_up() {
-//     const nickname = $("#inputNickname").val();
-//     const email = $("#inputEmail").val();
-//     const password1 = $("#inputPassword1").val();
-//     const password2 = $("#inputPassword2").val();
-
-//     $.ajax({
-//       type: "POST",
-//       url: "/api/users",
-//       data: {
-//         nickname: nickname,
-//         email: email,
-//         password: password1,
-//         confirmPassword: password2,
-//       },
-//       success: function (response) {
-//         customAlert("회원가입을 축하드립니다!", function () {
-//           window.location.replace("/");
-//         });
-//       },
-//       error: function (error) {
-//         customAlert(error.responseJSON.errorMessage);
-//       },
-//     });
-//   }
-//   function customAlert(text, confirmCallback) {
-//     $("#alertText").text(text);
-//     $("#alertModal").modal("show");
-//     if (confirmCallback) {
-//       $("#alertModal .btn-confirm").click(confirmCallback);
-//     }
-//   }
 
 
 function joinBoard() {
@@ -40,6 +8,8 @@ function joinBoard() {
     const password = $("#password").val()
     const confirmPassword = $("#confirmPassword").val()
     console.log("join")
+    if (password.search(nickName) > -1) return alert('비밀번호에 닉네임이 포함되어 있습니다.')
+    if (password.search(userEmail) > -1) return alert('비밀번호에 이메일 아이디가 포함되어 있습니다.')
 
     $.ajax({
         type: "POST",

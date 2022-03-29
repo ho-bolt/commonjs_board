@@ -56,6 +56,7 @@ crossorigin="anonymous"></script>
                },
            });
        }
+
        function logout() {
     localStorage.clear()
     window.location.href = "/board"
@@ -65,7 +66,7 @@ crossorigin="anonymous"></script>
 
   <nav class="navbar" role="navigation" aria-label="main navigation" id="nav-header">
     <div class="navbar-brand">
-      <a class="navbar-item" onclick="'/board'">
+      <a class="navbar-item" onclick="location.href='/board'">
        항해 블로그
       </a>
   
@@ -92,7 +93,6 @@ crossorigin="anonymous"></script>
               Log in
             </button>
           </div>
-          
         </div>
       </div>
     </div>

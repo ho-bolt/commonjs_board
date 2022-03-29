@@ -61,11 +61,16 @@ router.post("/join", userValid.PostUser, async (req, res) => {
 
 
 //로그인 
-
 router.post("/auth", async (req, res) => {
     const { userEmail, password } = req.body;
-    const decodedPassword = await User.findOne({ userEmail }).then((val) => { return val.password })
 
+    if (userEmail === "" || password === "") {
+        res.json({
+            success: false, msg: "이메일과 비밀번호를 입력해주세요!"
+        })
+        return;
+    }
+    const decodedPassword = await User.findOne({ userEmail }).then((val) => { return val.password })
     if (!bcrypt.compareSync(password, decodedPassword)) {
         res.json({
             success: false, msg: "이메일 또는 비밀번호가 틀렸습니다.",
@@ -73,8 +78,8 @@ router.post("/auth", async (req, res) => {
         return;
     }
     //입력한 이메일을 db에서 찾아서 user에 넣어줘
-    const user = await User.findOne({ userEmail });
 
+    const user = await User.findOne({ userEmail });
     //토큰 생성
     const token = jwt.sign({ userId: user.userNum }, key)
     res.status(201).send({
@@ -84,8 +89,6 @@ router.post("/auth", async (req, res) => {
 
 //사용자 검증
 router.get("/auth/me", authMiddleware, async (req, res) => {
-
-    console.log("ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ", res.locals.user)
     res.send({ user: res.locals.user, success: true, });
 });
 
