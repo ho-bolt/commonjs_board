@@ -63,7 +63,6 @@ router.post("/join", userValid.PostUser, async (req, res) => {
 //로그인 .then((val) => { return val.password })
 router.post("/auth", async (req, res) => {
     const { userEmail, password } = req.body;
-    console.log("###########", password)
     if (userEmail === "" || password === "") {
         res.json({
             success: false, msg: "이메일과 비밀번호를 입력해주세요!"
@@ -97,7 +96,6 @@ router.post("/auth", async (req, res) => {
 
 //사용자 검증
 router.get("/auth/me", authMiddleware, async (req, res) => {
-    console.log("@@@@@@@@@", res.locals.user)
     res.send({ user: res.locals.user, success: true, });
 });
 

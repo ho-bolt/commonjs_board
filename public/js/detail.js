@@ -1,3 +1,4 @@
+const { alternatives } = require("joi");
 
 
 function comment(boardId) {
@@ -15,8 +16,22 @@ function comment(boardId) {
         },
 
         success: function (response) {
-            alert(response['msg'])
-            window.location.reload()
+            if (response['success'] === true) {
+                alert(response['msg'])
+                window.location.href = "/board/" + boardId
+            } else {
+                alert(response['msg'])
+            }
+        },
+        error: function (xhr, status, error) {
+            if (status === 401) {
+                alert("로그인 먼저 해주세요")
+                window.location.href = "/user/auth"
+            }
+            else if (status === 400) {
+                alert("로그인 먼저 해주세요!")
+
+            }
         }
     })
 }
@@ -46,9 +61,9 @@ function sendId(commentId) {
     localStorage.setItem("commentId", commentId);
 
 }
-function getCommentId() {
+function getCommentId(boardId) {
     let cid = localStorage.getItem("commentId")
-    changeContet(cid);
+    changeContet(cid, boardId);
 }
 
 function open_input() {
@@ -57,7 +72,7 @@ function open_input() {
 
 
 
-function changeContet(cid) {
+function changeContet(cid, boardId) {
     let content = $("#comment-content").val()
     $.ajax({
         type: "PATCH",
@@ -68,7 +83,7 @@ function changeContet(cid) {
         success: function (response) {
             if (response['success'] === true) {
                 alert(response['msg'])
-                window.location.href = "/board"
+                window.location.href = "/board/" + boardId
             } else {
                 alert(response['msg'])
             }

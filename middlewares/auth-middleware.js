@@ -13,14 +13,14 @@ module.exports = async (req, res, next) => {
 
     console.log("미들웨어 들어옴")
     const { authorization } = req.headers;
-    console.log("%%%%%%%%%%%%&&&&&&&", req.headers)
+
+
     //토큰 검증 
     //복호화 되면 유효한 토큰
     try {
 
         if (!authorization) {
             res.locals.authResult = "10"
-            console.log("ddddddddd", res.locals.authResult)
         } else {
             try {
                 const [tokenType, tokenValue] = authorization.split(' ');
@@ -33,11 +33,12 @@ module.exports = async (req, res, next) => {
                     res.locals.user = existUser;
                     res.locals.authResult = "00";
                 }
-                console.log("dddddddd", existUser)
+
             } catch (err) {
                 console.log(err)
 
             }
+
         }
         next();
         //검증 실패시

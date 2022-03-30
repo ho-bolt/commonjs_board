@@ -32,14 +32,6 @@ router.get("/write", async (req, res) => {
 
 
 
-
-
-// //게시글 로그인 후 작성하게 하기
-// router.get("/auth", async (req, res) => {
-
-// })
-
-
 // //게시글 삭제
 router.delete("/:boardId", async (req, res) => {
     const { boardId } = req.params;
@@ -67,22 +59,22 @@ router.get("/:boardId", async (req, res) => {
 
     const { boardId } = req.params;
     const board = await Boards.findOne({ boardId: Number(boardId) }).exec()
-    const comments = await Comment.find({ boardId: Number(boardId) })
-    res.render('detail', {
-        board, comments,
-    });
+    const comments = await Comment.find({ boardId: Number(boardId) }).sort({ date: -1 })
+    res.render('detail', { board, comments, });
 });
 
 
 
 
 //댓글 수정
-router.patch("/comment/:cid", async (req, res) => {
+router.patch("/comment/:cid", authMiddleware, async (req, res) => {
+    const { user } = res.locals;
+    console.log("%%%", user)
     const { cid } = req.params;
     const { content } = req.body;
     const date = moment().format("YYYY-MM-DD HH:mm");
     await Comment.updateOne({ commentId: Number(cid) }, { $set: { content, date } })
-    return res.json({ msg: "수정 완료!", success: true })
+    return res.json({ msg: "수정 완료!", success: true, })
 
 })
 
@@ -122,6 +114,16 @@ router.get("/auth", authMiddleware, async (req, res) => {
     res.json({ nickName, userEmail, userNum })
 })
 
+router.get("/comment/auth", authMiddleware, async (req, res) => {
+    const { user } = req
+    const nickName = user.nickName
+    const userEmail = user.userEmail
+    const userNum = user.userNum
+
+    res.json({ nickName, userEmail, userNum })
+})
+
+
 //게시글 작성 
 router.post("/write", async (req, res) => {
     const { authorization } = req.headers
@@ -146,7 +148,15 @@ router.post("/write", async (req, res) => {
 //댓글 달기
 router.post("/comment", async (req, res) => {
     const { authorization } = req.headers
+
     const { boardId, content } = req.body;
+    if (content === "") {
+        res.json({
+            success: false, msg: "댓글 내용을 입력해주세요!"
+        })
+        return;
+    }
+
     const date = moment().format("YYYY-MM-DD HH:mm:ss")
     const { userId } = jwt.verify(authorization.split(" ")[1], key);
     const { nickName } = await User.findOne({ userNum: Number(userId) })

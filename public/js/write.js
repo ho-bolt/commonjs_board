@@ -78,7 +78,7 @@ function deleteBoard(boardId) {
 
 
 
-function write_auth(boardId) {
+function write_auth() {
     $.ajax({
         type: "GET",
         url: "/board/auth",

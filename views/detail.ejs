@@ -29,8 +29,9 @@ crossorigin="anonymous"></script>
  $(document).ready(function(){    
               if (localStorage.length !== 0){
                   getSelf()
+                  $("#input_update_comment").hide()
               }
-              
+            
           })
           
   
@@ -54,13 +55,18 @@ crossorigin="anonymous"></script>
                     }
                
                    console.log("response 객체 ",response.user.nickName)
+                   console.log("comment객체",response.comments)
+                   console.log("boardId",response.board)
                    let us=$("#user_nickName").text().trim();
+                   let cs=$("#com_writer").text().trim()
+                   console.log("Ddddddd",cs)
                    if(response.user.nickName===us){
                     let temp_html2=`
                     <button id="update__button__detail" type="button" class="btn btn-warning" onclick="location.href='/board/write/<%=board.boardId%>'" >수정하기</button>
                     `;               
                     $("#write_form_detail").append(temp_html2)
-                   }                
+                   } 
+               
                },
                error: function (xhr, status, error) {
                    if (status == 401) {
@@ -69,7 +75,7 @@ crossorigin="anonymous"></script>
                        localStorage.clear();
                        alert("알 수 없는 문제가 발생했습니다. board.");
                    }
-                  //  window.location.href = "/";
+                  
                },
            });
        }
@@ -146,30 +152,35 @@ crossorigin="anonymous"></script>
                
                    
             </form>
-            <form name="comment_post" method="post" action="">
+            <form name="comment_post" method="post" action="" class="make_comment">
                 <button type="button" class="button is-link comment" onclick="comment('<%=board.boardId%>')">댓글달기</button>
                 <input class="input" id="content" type="text" placeholder="Text input">
             </form>
 
             <div class="input-group mb-3" id="input_update_comment">   
                 <input type="text" class="form-control" id="comment-content" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                <button class="btn btn-outline-secondary" type="button" id="updated_comment" onclick="getCommentId()">수정완료</button>
+                <button class="btn btn-outline-secondary" type="button" id="updated_comment" onclick="getCommentId('<%=board.boardId%>')">수정완료</button>
               </div>
-            
-            <div class="comment_box contanier">  
-                <% comments.forEach(comment=>{ %>       
-                <div class="box" id="comment-box">
-                    <%=comment.nickName%> : 
-                    <%=comment.content %>   : 
-                    <%=comment.date%>
-                    
-                        <button class="button is-success is-light box_btn" onclick="open_input(),sendId('<%=comment.commentId%>')">수정</button>  
 
-                   <button type="button" class="button is-danger is-light box_btn" onclick="delete_comment('<%=comment.commentId %>','<%=comment.boardId%>')">삭제</button>
+              <% comments.forEach(comment=>{ %>  
+              <article class="message is-success">
+                <div class="message-header container">
+                    작성자
+                  <p id="com_writer"> <%=comment.nickName%> </p>
+                </div>
+                <div class="message-body" id="comment_body">
+                    <%=comment.content %> 
+                    <button id="up_com_btn" class="button is-warning is-light box_btn" onclick="open_input(),sendId('<%=comment.commentId%>')">수정</button>  
+                    <button id="de_com_btn" type="button" class="button is-danger is-light box_btn" onclick="delete_comment('<%=comment.commentId %>','<%=comment.boardId%>')">삭제</button>
+                   
+                </div>
+                <div class="message-header">
+                    작성 시간
+                    <p> <%=comment.date%></p>
                   </div>
-                
-                <% })%>
-            </div>
+              </article>
+              <% })%>
+
         </div>
     </div>
 </body>
