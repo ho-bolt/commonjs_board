@@ -21,7 +21,8 @@ const router = express.Router();
 router.get("/", async (req, res) => {
     const boards = await Boards.find().sort({ date: -1 })
 
-    res.status(200).render('board', { boards })
+    console.log("Dddddddd", res.locals.user)
+    res.status(200).render('board', { boards, })
 
 });
 

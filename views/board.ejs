@@ -19,22 +19,6 @@ crossorigin="anonymous"></script>
 
 <script>
 
-function sendHeaders(boardId){
-    console.log('3333333333')
-    $.ajax({
-    type: "GET",
-    url: "/board/"+boardId,
-    headers: {
-        authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
-    success:function(response){
-        // let nickName=response['nickName']
-        // let userNum=response['nickName']
-        console.log("dddddddd",response)
-    }
-    })
-}
-
 
 
  </script>
@@ -51,7 +35,9 @@ function sendHeaders(boardId){
 
   
 <%- include('header.ejs')%>
- 
+    <div>
+       
+    </div>
     <div class="main_table">
         <table class="table table-hover" id="board_tables">
             <thead>

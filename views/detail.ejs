@@ -30,6 +30,7 @@ crossorigin="anonymous"></script>
               if (localStorage.length !== 0){
                   getSelf()
                   $("#input_update_comment").hide()
+                  $(".box_btn").hide()
               }
             
           })
@@ -66,6 +67,14 @@ crossorigin="anonymous"></script>
                     `;               
                     $("#write_form_detail").append(temp_html2)
                    } 
+                   if(response.user.nickName===cs){
+                     for(let i=0;i<document.getElementsByClassName('message is-success').length;i++){
+                       if(cs===response.user.nickName){
+                        $(".box_btn").show()
+                       }
+                     }
+                    
+                   }
                
                },
                error: function (xhr, status, error) {
@@ -163,23 +172,25 @@ crossorigin="anonymous"></script>
               </div>
 
               <% comments.forEach(comment=>{ %>  
-              <article class="message is-success">
-                <div class="message-header container">
-                    작성자
-                  <p id="com_writer"> <%=comment.nickName%> </p>
-                </div>
-                <div class="message-body" id="comment_body">
-                    <%=comment.content %> 
-                    <button id="up_com_btn" class="button is-warning is-light box_btn" onclick="open_input(),sendId('<%=comment.commentId%>')">수정</button>  
-                    <button id="de_com_btn" type="button" class="button is-danger is-light box_btn" onclick="delete_comment('<%=comment.commentId %>','<%=comment.boardId%>')">삭제</button>
-                   
-                </div>
-                <div class="message-header">
-                    작성 시간
-                    <p> <%=comment.date%></p>
+                <article class="message is-success">
+                  <div class="message-header container">
+                      작성자
+                    <p id="com_writer"> <%=comment.nickName%> </p>
                   </div>
-              </article>
-              <% })%>
+                  <div class="message-body" id="comment_body">
+                      <%=comment.content %> 
+                      <button id="up_com_btn"  class="button is-warning is-light box_btn" onclick="open_input(),sendId('<%=comment.commentId%>')">수정</button>  
+                      <button id="de_com_btn" type="button" class="button is-danger is-light box_btn" onclick="delete_comment('<%=comment.commentId %>','<%=comment.boardId%>')">삭제</button>
+                     
+                  </div>
+                  <div class="message-header">
+                      작성 시간
+                      <p> <%=comment.date%></p>
+                    </div>
+                </article>
+                <% })%>
+
+
 
         </div>
     </div>

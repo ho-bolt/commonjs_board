@@ -40,6 +40,7 @@ module.exports = async (req, res, next) => {
             }
 
         }
+        console.log("**********", res.locals.user.nickName)
         next();
         //검증 실패시
     } catch {

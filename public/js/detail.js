@@ -86,6 +86,7 @@ function changeContet(cid, boardId) {
                 window.location.href = "/board/" + boardId
             } else {
                 alert(response['msg'])
+                localStorage.removeItem('commentId')
             }
 
         }
