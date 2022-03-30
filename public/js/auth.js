@@ -14,7 +14,6 @@ function authBoard() {
         success: function (response) {
             if (response['success'] === true) {
                 localStorage.setItem("token", response['token']);
-                console.log(response['token'])
                 alert(response['msg'])
                 window.location.replace("/board");
             } else {

@@ -60,17 +60,24 @@ router.post("/join", userValid.PostUser, async (req, res) => {
 
 
 
-//로그인 
+//로그인 .then((val) => { return val.password })
 router.post("/auth", async (req, res) => {
     const { userEmail, password } = req.body;
-
+    console.log("###########", password)
     if (userEmail === "" || password === "") {
         res.json({
             success: false, msg: "이메일과 비밀번호를 입력해주세요!"
         })
         return;
     }
-    const decodedPassword = await User.findOne({ userEmail }).then((val) => { return val.password })
+    const existUser = await User.findOne({ userEmail })
+    if (existUser === null) {
+        res.json({
+            success: false, msg: "해당하는 아이디가 혹은 비밀번호가 틀렸습니다."
+        })
+        return;
+    }
+    const decodedPassword = existUser.password;
     if (!bcrypt.compareSync(password, decodedPassword)) {
         res.json({
             success: false, msg: "이메일 또는 비밀번호가 틀렸습니다.",
