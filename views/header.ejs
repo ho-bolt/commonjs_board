@@ -10,13 +10,19 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 crossorigin="anonymous"></script>
-
+<style>
+  .box{
+    margin-top: 10px;
+  }
+</style>
 <script>
   //토큰이 있으면 사용자 검증 
   
 $(document).ready(function(){    
               if (localStorage.length !== 0){
                   getSelf()
+              }else{
+                $("#userNickname").hide()
               }
               
           })
@@ -42,7 +48,11 @@ $(document).ready(function(){
                    
                    }
                    console.log("response 객체 ",response.user.nickName)
+                   let userNickname=response.user.nickName;
+                   console.log("Dddddd",userNickname)
                   //  callback(response.user)
+                  let temp_html=`<p>${userNickname}</p>`
+                  $("#userNickname").append(temp_html)
                                     
                },
                error: function (xhr, status, error) {
@@ -70,18 +80,18 @@ $(document).ready(function(){
       <a class="navbar-item" onclick="location.href='/board'">
        항해 블로그
       </a>
-  
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
+     
+     
+    </div>
+    <div class="box" id="userNickname">
+      <p></p>
     </div>
   
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
       
       </div>
+     
   
       <div class="navbar-end">
         <div class="navbar-item">
