@@ -26,15 +26,99 @@ crossorigin="anonymous"></script>
   
 </style>
 <script>
- 
+ $(document).ready(function(){    
+              if (localStorage.length !== 0){
+                  getSelf()
+              }
+              
+          })
+          
+  
+        function getSelf() {
+           $.ajax({
+               type: "GET",
+               url: "/users/auth/me",
+               headers: {
+                   authorization: `Bearer ${localStorage.getItem("token")}`,
+               },
+               success: function (response) {
+                   if(response['success']===true){
+                      let temp_html=`
+                      <div class="buttons">       
+                          <button class="button is-light" onclick="logout()">
+                              Log out
+                          </button>
+                      </div>
+                              `
+                   $("#navbar-buttons").replaceWith(temp_html)
+                    }
+               
+                   console.log("response 객체 ",response.user.nickName)
+                   let us=$("#user_nickName").text().trim();
+                   if(response.user.nickName===us){
+                    let temp_html2=`
+                    <button id="update__button__detail" type="button" class="btn btn-warning" onclick="location.href='/board/write/<%=board.boardId%>'" >수정하기</button>
+                    `;               
+                    $("#write_form_detail").append(temp_html2)
+                   }                
+               },
+               error: function (xhr, status, error) {
+                   if (status == 401) {
+                       alert("로그인이 필요합니다.");
+                   } else {
+                       localStorage.clear();
+                       alert("알 수 없는 문제가 발생했습니다. board.");
+                   }
+                  //  window.location.href = "/";
+               },
+           });
+       }
+       function logout() {
+    localStorage.clear()
+    window.location.href = "/board"
+}
 </script>
   
 
 <body>
 
-  <%- include('header.ejs') %>
+    <nav class="navbar" role="navigation" aria-label="main navigation" id="nav-header">
+        <div class="navbar-brand">
+          <a class="navbar-item" onclick="location.href='/board'">
+           항해 블로그
+          </a>
+      
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+      
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+          
+          </div>
+      
+          <div class="navbar-end">
+            <div class="navbar-item">
+    
+              <div class="buttons" id="navbar-buttons">
+                <button id="sign_up" class="button is-primary" onclick="location.href='/users/join'">
+                  <strong>Sign up</strong>
+                </button>
+                <button id="log_in" class="button is-light" onclick="location.href='/users/auth'">
+                  Log in
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    
+    
 
-        <div class="write_form">
+        <div class="write_form" >
             <form class="box">
                 <div class="field">
                 <label class="label">TITLE</label>
@@ -52,13 +136,15 @@ crossorigin="anonymous"></script>
 
                 <div class="field">
                     <label class="label">NICK NAME</label>
-                    <div class="control">
+                    <div class="control" id="user_nickName">
                         <%=board.nickName%>
                     </div>
                 </div>
-                    <% if(locals.user.nickName === board.nickName){ %>
-                <button type="button" class="btn btn-warning" onclick="location.href='/board/write/<%=board.boardId%>'" >수정하기</button>
-                    <% } %>
+                 <div id="write_form_detail">
+
+                 </div>
+               
+                   
             </form>
             <form name="comment_post" method="post" action="">
                 <button type="button" class="button is-link comment" onclick="comment('<%=board.boardId%>')">댓글달기</button>

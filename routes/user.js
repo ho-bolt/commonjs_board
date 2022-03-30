@@ -90,6 +90,7 @@ router.post("/auth", async (req, res) => {
 
 //사용자 검증
 router.get("/auth/me", authMiddleware, async (req, res) => {
+    console.log("@@@@@@@@@", res.locals.user)
     res.send({ user: res.locals.user, success: true, });
 });
 
