@@ -19,23 +19,25 @@ crossorigin="anonymous"></script>
 
 <script>
 
-function checkNickName(boardId){
+function sendHeaders(boardId){
     console.log('3333333333')
-$.ajax({
+    $.ajax({
     type: "GET",
     url: "/board/"+boardId,
     headers: {
         authorization: `Bearer ${localStorage.getItem("token")}`,
     },
-   
-    success: function (response) {
-        alert(response['msg'])
-        window.location.href = '/board'
+    success:function(response){
+        // let nickName=response['nickName']
+        // let userNum=response['nickName']
+        console.log("dddddddd",response)
     }
-})
-
+    })
 }
-</script>
+
+
+
+ </script>
 
 
 
@@ -66,7 +68,7 @@ $.ajax({
                 <% boards.forEach(board => { %>        
                 <tr>
                 <th scope="row" ><%=board.boardId %></th>
-                <td class="board_title" onclick="location.href='/board/<%=board.boardId %>'"><%= board.title %></td>
+                <td class="board_title" onclick="location.href='board/<%=board.boardId%>'"><%= board.title %></td>
                 <td><%=board.nickName %></td>
                 <td><%= board.date %></td>
             </tr>

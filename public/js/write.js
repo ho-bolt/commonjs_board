@@ -59,12 +59,11 @@ function updateBoard(boardId) {
 }
 
 function deleteBoard(boardId) {
-    let password = $('#password').val()
     $.ajax({
 
         type: "DELETE",
         url: "/board/" + boardId,
-        data: { password },
+        data: {},
 
         success: function (response) {
             if (response['success'] === true) {

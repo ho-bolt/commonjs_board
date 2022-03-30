@@ -13,16 +13,16 @@ crossorigin="anonymous"></script>
 
 <script>
   //토큰이 있으면 사용자 검증 
-  let user
-  $(document).ready(function(u){    
+  
+$(document).ready(function(){    
               if (localStorage.length !== 0){
-                  getSelf(u)
-                  user = u;
+                  getSelf()
               }
               
           })
+          
   
-        function getSelf(callback) {
+        function getSelf() {
            $.ajax({
                type: "GET",
                url: "/users/auth/me",
@@ -42,7 +42,7 @@ crossorigin="anonymous"></script>
                    
                    }
                    console.log("response 객체 ",response.user.nickName)
-                   callback(response.user)
+                  //  callback(response.user)
                                     
                },
                error: function (xhr, status, error) {

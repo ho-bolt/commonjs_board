@@ -2,30 +2,44 @@ const jwt = require("jsonwebtoken")
 const User = require("../models/users")
 const key = process.env.SECERTKEY
 
+/*
+    00:로그인 성공
+    10:토큰없음 (로그인 정보 없음)
+    11: 토큰에 담겨있는 정보와 맞는 db없음
+*/
+
 
 module.exports = async (req, res, next) => {
-    const { authorization } = req.headers;
+
     console.log("미들웨어 들어옴")
-    const [tokenType, tokenValue] = authorization.split(' ');
-
-
-    if (tokenType !== 'Bearer') {
-        res.status(401).send({
-            error: '로그인 후 사용하세요.'
-        })
-        return
-    }
+    const { authorization } = req.headers;
+    console.log("%%%%%%%%%%%%&&&&&&&", req.headers)
     //토큰 검증 
     //복호화 되면 유효한 토큰
-    console.log("토큰 검증")
     try {
-        const { userId } = jwt.verify(tokenValue, key);
-        //db에서 해당 userId와 맞는 유저 찾아서 그 유저를 locals에 넣어준다.
-        User.findOne({ userNum: Number(userId) }).then((user) => {
-            //토큰 검증한 걸 userId에 넣어주고 
-            res.locals.user = user;
-            next();
-        });
+
+        if (!authorization) {
+            res.locals.authResult = "10"
+            console.log("ddddddddd", res.locals.authResult)
+        } else {
+            try {
+                const [tokenType, tokenValue] = authorization.split(' ');
+                const { userId, nickName } = jwt.verify(tokenValue, key);
+                console.log("@@@@@@@@", userId, nickName)
+                //db에서 해당 userId와 맞는 유저 찾아서 그 유저를 locals에 넣어준다.
+                const existUser = await User.findOne({ userNum: Number(userId), nickName });
+                if (!existUser) res.locals.authResult = "11";
+                else {
+                    res.locals.user = existUser;
+                    res.locals.authResult = "00";
+                }
+                console.log("dddddddd", existUser)
+            } catch (err) {
+                console.log(err)
+
+            }
+        }
+        next();
         //검증 실패시
     } catch {
         res.status(401).json({

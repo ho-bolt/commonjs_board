@@ -81,7 +81,8 @@ router.post("/auth", async (req, res) => {
 
     const user = await User.findOne({ userEmail });
     //토큰 생성
-    const token = jwt.sign({ userId: user.userNum }, key)
+    const token = jwt.sign({ userId: user.userNum, nickName: user.nickName }, key)
+
     res.status(201).send({
         success: true, token, msg: "로그인성공",
     });
