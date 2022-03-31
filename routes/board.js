@@ -20,8 +20,6 @@ const router = express.Router();
 // 전체 게시글 조회 
 router.get("/", async (req, res) => {
     const boards = await Boards.find().sort({ date: -1 })
-
-    console.log("Dddddddd", res.locals.user)
     res.status(200).render('board', { boards, })
 
 });

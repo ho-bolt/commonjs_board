@@ -1,11 +1,12 @@
 const express = require("express");
 const connect = require("./models")
 const helmet = require("helmet")
-
+const app = express()
+const cors = require("cors")
 require('dotenv').config()
 const swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("./swagger-output");
-const port = 3000;
+const port = process.env.PORT;
 
 
 //ejs 세팅 
