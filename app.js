@@ -4,6 +4,8 @@ const helmet = require("helmet")
 const cors = require("cors")
 const app = express();
 require('dotenv').config()
+const swaggerUi = require("swagger-ui-express");
+const swaggerFile = require("./swagger-output");
 const port = 3000;
 
 
@@ -30,16 +32,16 @@ const requestMiddleware = (req, res, next) => {
 
 
 //미들웨어 
-
+app.use(cors())
+app.use(helmet({ contentSecurityPolicy: false }))
+app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use(express.static(__dirname + '/public'));
 app.use(express.json());
 app.use(requestMiddleware);
-app.use(helmet({ contentSecurityPolicy: false }))
 app.use(express.urlencoded({ extended: false }))
 // app.use('/static', express.static(path.join(__dirname, '../static')));
 app.use("/board", [boardRouter])
 app.use("/users", [userRouter])
-app.use(cors())
 
 // app.use('/ejs에서접근할경로', express.static(path.join(__dirname, ' /실제위치한디렉토리경로')));  
 
