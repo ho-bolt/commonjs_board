@@ -2,10 +2,9 @@ const express = require("express");
 const connect = require("./models")
 const helmet = require("helmet")
 const cors = require("cors")
-const cookieParser = require("cookie-parser")
 const app = express();
 require('dotenv').config()
-
+const port = 3000;
 
 
 //ejs 세팅 
@@ -52,6 +51,6 @@ app.get("/", (req, res) => {
 
 
 
-app.listen(process.env.PORT, () => {
+app.listen(port, () => {
     console.log("서버 킴")
 })
