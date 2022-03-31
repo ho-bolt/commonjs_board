@@ -26,12 +26,18 @@ crossorigin="anonymous"></script>
 </style>
 <script>
  $(document).ready(function(){    
+                //로그인 한 것
               if (localStorage.length !== 0){
                   getSelf()
+                  $(".box_btn").hide()
+                  // $("#up_com_btn").hide()
                   $("#input_update_comment").hide()
-                 
+               //로그인 안한 것
               }else{
                 $(".box_btn").hide()
+                // $("#up_com_btn").hide()
+                $("#input_update_comment").hide()
+              
               }
             
           })
@@ -58,7 +64,7 @@ crossorigin="anonymous"></script>
                
                   
                    let us=$("#user_nickName").text().trim();
-                   let cs=$("#com_writer").text().trim()
+                  
                   
                    if(response.user.nickName===us){
                     let temp_html2=`
@@ -66,12 +72,20 @@ crossorigin="anonymous"></script>
                     `;               
                     $("#write_form_detail").append(temp_html2)
                  
-                   }             
-                       if(cs===response.user.nickName){
-                        $(".box_btn").show()                 
-                     
-                    }
-               
+                   }    
+                   for(let i=0;i<=document.getElementsByTagName('article').length;i++){
+                    
+                    let cs=$("#com_writer").text().trim()   
+                    if(cs===response.user.nickName){
+                      for(let j=0;j<=document.getElementsByClassName('article').length;j++){
+                          
+                        $(`#up_com_btn${cs}`).show() 
+                        $(`#de_com_btn${cs}`).show()   
+                      }
+                                                          
+                   }
+                      
+                  }
                },
                error: function (xhr, status, error) {
                    if (status == 401) {
@@ -176,8 +190,8 @@ crossorigin="anonymous"></script>
                   </div>
                   <div class="message-body" id="comment_body">
                       <%=comments[i].content %> 
-                      <button id="up_com_btn"  class="button is-warning is-light box_btn" onclick="open_input(),sendId('<%=comments[i].commentId%>')">수정</button>  
-                      <button id="de_com_btn" type="button" class="button is-danger is-light box_btn" onclick="delete_comment('<%=comments[i].commentId %>','<%=comments[i].boardId%>')">삭제</button>
+                      <button id="up_com_btn<%=comments[i].nickName%>"  class="button is-warning is-light box_btn " onclick="open_input(),sendId('<%=comments[i].commentId%>')">수정</button>  
+                      <button id="de_com_btn<%=comments[i].nickName%>" type="button" class="button is-danger is-light box_btn " onclick="delete_comment('<%=comments[i].commentId %>','<%=comments[i].boardId%>')">삭제</button>
                      
                   </div>
                   <div class="message-header">
