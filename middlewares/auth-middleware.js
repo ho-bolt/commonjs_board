@@ -24,7 +24,6 @@ module.exports = async (req, res, next) => {
             try {
                 const [tokenType, tokenValue] = authorization.split(' ');
                 const { userId, nickName } = jwt.verify(tokenValue, key);
-                console.log("@@@@@@@@", userId, nickName)
                 //db에서 해당 userId와 맞는 유저 찾아서 그 유저를 locals에 넣어준다.
                 const existUser = await User.findOne({ userNum: Number(userId), nickName });
                 if (!existUser) res.locals.authResult = "11";

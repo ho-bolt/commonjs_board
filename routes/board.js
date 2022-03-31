@@ -67,7 +67,6 @@ router.get("/:boardId", async (req, res) => {
 //댓글 수정
 router.patch("/comment/:cid", authMiddleware, async (req, res) => {
     const { user } = res.locals;
-    console.log("%%%", user)
     const { cid } = req.params;
     const { content } = req.body;
     const date = moment().format("YYYY-MM-DD HH:mm");

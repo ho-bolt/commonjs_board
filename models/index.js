@@ -6,7 +6,6 @@ const connect = () => {
     mongoose.connect('mongodb://localhost:27017/spa_blog', { ignoreUndefined: true }).catch((err) => {
         console.log(err)
     });
-    console.log("ddddd", typeof (dburl))
     console.log("DB 연결! ")
 };
 

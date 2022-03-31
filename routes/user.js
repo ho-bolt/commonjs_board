@@ -17,7 +17,6 @@ const router = express.Router();
 
 //회원가입 페이지
 router.get("/join", async (req, res) => {
-    console.log("join")
     res.render('join')
 })
 

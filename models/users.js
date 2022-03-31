@@ -9,12 +9,6 @@ const User = new mongoose.Schema({
 
 });
 
-// User.virtual("userId").get(function () {
-//     return this._id.toHexString();
-// });
-// User.set("toJSON", {
-//     virtuals: true,
-// });
 
 
 autoIdSetter(User, mongoose, 'userNum', 'userNum')
