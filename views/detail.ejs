@@ -29,9 +29,9 @@ crossorigin="anonymous"></script>
               if (localStorage.length !== 0){
                   getSelf()
                   $("#input_update_comment").hide()
-                  $(".box_btn").hide()
+                 
               }else{
-              
+                $(".box_btn").hide()
               }
             
           })
@@ -67,10 +67,9 @@ crossorigin="anonymous"></script>
                     $("#write_form_detail").append(temp_html2)
                  
                    }             
-                     for(let i=0;i<document.getElementsByTagName('article').length;i++){
                        if(cs===response.user.nickName){
                         $(".box_btn").show()                 
-                     }
+                     
                     }
                
                },
