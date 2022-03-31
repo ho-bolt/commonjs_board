@@ -30,7 +30,7 @@ const requestMiddleware = (req, res, next) => {
 
 
 //미들웨어 
-app.use(cors())
+
 app.use(express.static(__dirname + '/public'));
 app.use(express.json());
 app.use(requestMiddleware);
@@ -39,7 +39,7 @@ app.use(express.urlencoded({ extended: false }))
 // app.use('/static', express.static(path.join(__dirname, '../static')));
 app.use("/board", [boardRouter])
 app.use("/users", [userRouter])
-
+app.use(cors())
 
 // app.use('/ejs에서접근할경로', express.static(path.join(__dirname, ' /실제위치한디렉토리경로')));  
 
