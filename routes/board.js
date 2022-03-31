@@ -46,7 +46,6 @@ router.delete("/:boardId", async (req, res) => {
 //댓글 삭제
 router.delete("/comment/:commentId", async (req, res) => {
     const { commentId } = req.params;
-    console.log("commenttttttttttt", commentId)
     await Comment.deleteOne({ commentId: Number(commentId) })
     return res.status(200).json({ msg: "댓글 삭제!", success: true })
 })
@@ -149,6 +148,13 @@ router.post("/write", async (req, res) => {
 //댓글 달기
 router.post("/comment", async (req, res) => {
     const { authorization } = req.headers
+    const [tokenType, tokenValue] = authorization.split(' ');
+    if (tokenValue === "null") {
+        res.json({
+            msg: "로그인 먼저 해주세요!"
+        })
+        return;
+    }
 
     const { boardId, content } = req.body;
     if (content === "") {

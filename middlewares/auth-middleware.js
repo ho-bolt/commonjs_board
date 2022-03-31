@@ -11,7 +11,6 @@ const key = process.env.SECERTKEY
 
 module.exports = async (req, res, next) => {
 
-    console.log("미들웨어 들어옴")
     const { authorization } = req.headers;
 
 
@@ -40,7 +39,6 @@ module.exports = async (req, res, next) => {
             }
 
         }
-        console.log("**********", res.locals.user.nickName)
         next();
         //검증 실패시
     } catch {

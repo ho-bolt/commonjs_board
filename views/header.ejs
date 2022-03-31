@@ -47,9 +47,7 @@ $(document).ready(function(){
                    $("#navbar-buttons").replaceWith(temp_html)
                    
                    }
-                   console.log("response 객체 ",response.user.nickName)
                    let userNickname=response.user.nickName;
-                   console.log("Dddddd",userNickname)
                   //  callback(response.user)
                   let temp_html=`<p>${userNickname}</p>`
                   $("#userNickname").append(temp_html)

@@ -78,23 +78,3 @@ function deleteBoard(boardId) {
 
 
 
-// function write_auth() {
-//     $.ajax({
-//         type: "GET",
-//         url: "/board/auth",
-//         headers: {
-//             authorization: `Bearer ${localStorage.getItem("token")}`,
-//         },
-//         success: function (response) {
-//             // let nickName = response['nickname']
-//             // let userNum = response['userNum']
-//             // if (boardId == undefined) boardId = ''
-//             // let txt = nickName + "&" + userNum + "&" + boardId
-//             // window.location.href = `/board/write/${txt}`
-//         },
-//         error: function (xhr, status, error) {
-//             alert("로그인 먼저 하세요!")
-//             window.location.href = "/auth"
-//         }
-//     })
-// }

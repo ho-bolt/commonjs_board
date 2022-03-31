@@ -1,4 +1,3 @@
-const { alternatives } = require("joi");
 
 
 function comment(boardId) {
@@ -15,16 +14,21 @@ function comment(boardId) {
             content,
         },
 
-        success: function (response) {
+        success: function (response, stauts) {
             if (response['success'] === true) {
                 alert(response['msg'])
                 window.location.href = "/board/" + boardId
-            } else {
+            }
+            else if (response['success'] === false) {
                 alert(response['msg'])
+            }
+            else {
+                alert(response['msg'])
+                window.location.href = "/users/auth"
             }
         },
         error: function (xhr, status, error) {
-            if (status === 401) {
+            if (status === 400) {
                 alert("로그인 먼저 해주세요")
                 window.location.href = "/user/auth"
             }
