@@ -18,11 +18,15 @@ const router = express.Router();
 
 //회원가입 페이지
 router.get("/join", async (req, res) => {
+    // #swagger.tags = ["User"]
+    // #swagger.summary = "회원가입 페이지"
     res.render('join')
 })
 
 //로그인 페이지
 router.get("/auth", async (req, res) => {
+    // #swagger.tags = ["User"]
+    // #swagger.summary = "로그인 페이지"
     res.render('auth')
 })
 
@@ -31,6 +35,8 @@ router.get("/auth", async (req, res) => {
 
 //회원가입
 router.post("/join", userVaild.PostUser, async (req, res) => {
+    // #swagger.tags = ["User"]
+    // #swagger.summary = "회원가입 하기"
     const { userEmail, nickName, password, confirmPassword } = req.body;
     //비번 확인
     if (password !== confirmPassword) {
@@ -60,8 +66,10 @@ router.post("/join", userVaild.PostUser, async (req, res) => {
 
 
 
-//로그인 .then((val) => { return val.password })
+//로그인
 router.post("/auth", async (req, res) => {
+    // #swagger.tags = ["User"]
+    // #swagger.summary = "로그인 하기"
     const { userEmail, password } = req.body;
     if (userEmail === "" || password === "") {
         res.json({
@@ -96,6 +104,8 @@ router.post("/auth", async (req, res) => {
 
 //사용자 검증
 router.get("/auth/me", authMiddleware, async (req, res) => {
+    // #swagger.tags = ["User"]
+    // #swagger.summary = "사용자 검증"
     res.send({ user: res.locals.user, success: true, });
 });
 

@@ -18,6 +18,8 @@ const router = express.Router();
 
 // 전체 게시글 조회 
 router.get("/", async (req, res) => {
+    // #swagger.tags = ["Board"]
+    // #swagger.summary = "전체 게시글 조회 "
     const boards = await Boards.find().sort({ date: -1 })
     res.status(200).render('board', { boards, })
 
@@ -25,6 +27,8 @@ router.get("/", async (req, res) => {
 
 //작성페이지
 router.get("/write", async (req, res) => {
+    // #swagger.tags = ["Board"]
+    // #swagger.summary = "작성 페이지"
     res.render('../views/write')
 });
 
@@ -32,6 +36,8 @@ router.get("/write", async (req, res) => {
 
 // //게시글 삭제
 router.delete("/:boardId", async (req, res) => {
+    // #swagger.tags = ["Board"]
+    // #swagger.summary = "게시글 삭제"
     const { boardId } = req.params;
 
     // const [board] = await Boards.find({ boardId: Number(boardId) })
@@ -42,6 +48,8 @@ router.delete("/:boardId", async (req, res) => {
 
 //댓글 삭제
 router.delete("/comment/:commentId", async (req, res) => {
+    // #swagger.tags = ["Comment"]
+    // #swagger.summary = "댓글 삭제 "
     const { commentId } = req.params;
     await Comment.deleteOne({ commentId: Number(commentId) })
     return res.status(200).json({ msg: "댓글 삭제!", success: true })
@@ -53,7 +61,8 @@ router.delete("/comment/:commentId", async (req, res) => {
 // 게시글 상세 조회 
 
 router.get("/:boardId", async (req, res) => {
-
+    // #swagger.tags = ["Board"]
+    // #swagger.summary = "게시글 상세 조회"
     const { boardId } = req.params;
     const board = await Boards.findOne({ boardId: Number(boardId) }).exec()
     const comments = await Comment.find({ boardId: Number(boardId) }).sort({ date: -1 })
@@ -65,6 +74,8 @@ router.get("/:boardId", async (req, res) => {
 
 //댓글 수정
 router.patch("/comment/:cid", authMiddleware, async (req, res) => {
+    // #swagger.tags = ["Comment"]
+    // #swagger.summary = "댓글 수정"
     const { user } = res.locals;
     const { cid } = req.params;
     const { content } = req.body;
@@ -78,6 +89,8 @@ router.patch("/comment/:cid", authMiddleware, async (req, res) => {
 
 //수정하기로 가기 
 router.get("/write/:boardId", async (req, res) => {
+    // #swagger.tags = ["Board"]
+    // #swagger.summary = "수정하기로 가기 "
     const { boardId } = req.params
     const [board] = await Boards.find({ boardId: Number(boardId) })
     res.render('write', { board })
@@ -89,6 +102,8 @@ router.get("/write/:boardId", async (req, res) => {
 
 //게시글 수정 
 router.put("/:boardId", async (req, res) => {
+    // #swagger.tags = ["Board"]
+    // #swagger.summary = "게시글 수정"
     const { boardId } = req.params;
     const { title, content } = req.body;
     const date = moment().format("YYYY-MM-DD HH:mm");
@@ -102,6 +117,8 @@ router.put("/:boardId", async (req, res) => {
 
 //로그인 확인 여부
 router.get("/auth", authMiddleware, async (req, res) => {
+    // #swagger.tags = ["User"]
+    // #swagger.summary = "로그인 확인 여부"
     const { user } = req
     const nickName = user.nickName
     const userEmail = user.userEmail
@@ -111,6 +128,8 @@ router.get("/auth", authMiddleware, async (req, res) => {
 })
 
 router.get("/comment/auth", authMiddleware, async (req, res) => {
+    // #swagger.tags = ["Comment"]
+    // #swagger.summary = "댓글 사용자 인증"
     const { user } = req
     const nickName = user.nickName
     const userEmail = user.userEmail
@@ -122,6 +141,8 @@ router.get("/comment/auth", authMiddleware, async (req, res) => {
 
 //게시글 작성 
 router.post("/write", async (req, res) => {
+    // #swagger.tags = ["Board"]
+    // #swagger.summary = "게시글 작성"
     const { authorization } = req.headers
     const { title, content } = req.body;
 
@@ -143,6 +164,8 @@ router.post("/write", async (req, res) => {
 
 //댓글 달기
 router.post("/comment", async (req, res) => {
+    // #swagger.tags = ["Comment"]
+    // #swagger.summary = "댓글 달기"
     const { authorization } = req.headers
     const [tokenType, tokenValue] = authorization.split(' ');
     if (tokenValue === "null") {

@@ -5,7 +5,7 @@ import app from "./server";
 import * as dotenv from 'dotenv'
 dotenv.config()
 
-const PORT = process.env.PORT;
+const PORT = 3000;
 console.log("@@@", PORT)
 function handleListening() {
     console.log("서버 킴")
