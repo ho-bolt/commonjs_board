@@ -1,13 +1,14 @@
-const express = require("express");
-const connect = require("./models")
-const helmet = require("helmet")
-const app = express()
-const cors = require("cors")
-require('dotenv').config()
-const swaggerUi = require("swagger-ui-express");
-const swaggerFile = require("./swagger-output");
-const port = process.env.PORT;
+import express from "express";
+import connect from "./db"
+import helmet from "helmet";
+import cors from "cors";
+import swaggerUi from "swagger-ui-express";
+import swaggerFile from "./swagger-output";
+import * as dotenv from 'dotenv'
+dotenv.config()
 
+const port = process.env.PORT;
+const app = express()
 
 //ejs 세팅 
 app.set('views', __dirname + '/views')
@@ -38,7 +39,7 @@ app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use(express.static(__dirname + '/public'));
 app.use(express.json());
 app.use(requestMiddleware);
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: true }))
 // app.use('/static', express.static(path.join(__dirname, '../static')));
 app.use("/board", [boardRouter])
 app.use("/users", [userRouter])
@@ -51,8 +52,4 @@ app.get("/", (req, res) => {
     res.redirect('/board')
 })
 
-
-
-app.listen(port, () => {
-    console.log("서버 킴")
-})
+export default app;

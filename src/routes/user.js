@@ -1,12 +1,13 @@
-const express = require("express")
-const moment = require("moment")
-const bcrypt = require('bcrypt')
-const User = require("../models/users")
-const jwt = require("jsonwebtoken");
-const userValid = require("../helpers/userValid")
-const authMiddleware = require("../middlewares/auth-middleware")
-
-const key = process.env.SECERTKEY
+import express from "express"
+import bcrypt from "bcrypt"
+import User from "../models/users"
+import jwt from "jsonwebtoken"
+import userVaild from "../helpers/userValid"
+import * as dotenv from 'dotenv'
+import authMiddleware from "../middlewares/auth-middleware";
+dotenv.config()
+const salt = process.env.SALTNUM
+const secretkey = process.env.SECERTKEY
 
 
 //라우터 생성
@@ -29,7 +30,7 @@ router.get("/auth", async (req, res) => {
 
 
 //회원가입
-router.post("/join", userValid.PostUser, async (req, res) => {
+router.post("/join", userVaild.PostUser, async (req, res) => {
     const { userEmail, nickName, password, confirmPassword } = req.body;
     //비번 확인
     if (password !== confirmPassword) {
@@ -49,7 +50,7 @@ router.post("/join", userValid.PostUser, async (req, res) => {
         });
         return;
     }
-    const hashedPw = bcrypt.hashSync(password, 10);
+    const hashedPw = bcrypt.hashSync(password, salt);
 
     const user = new User({ userEmail, nickName, password: hashedPw });
     await user.save()
@@ -86,7 +87,7 @@ router.post("/auth", async (req, res) => {
 
     const user = await User.findOne({ userEmail });
     //토큰 생성
-    const token = jwt.sign({ userId: user.userNum, nickName: user.nickName }, key)
+    const token = jwt.sign({ userId: user.userNum, nickName: user.nickName }, secretkey)
 
     res.status(201).send({
         success: true, token, msg: "로그인성공",

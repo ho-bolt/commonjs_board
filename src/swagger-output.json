@@ -328,7 +328,6 @@
     "/users/join": {
       "get": {
         "tags":["User"],
-        "summary":"회원가입하기",
         "description": "",
         "parameters": [],
         "responses": {}

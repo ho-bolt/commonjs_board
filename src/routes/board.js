@@ -1,17 +1,16 @@
-const express = require("express")
-const moment = require("moment")
-const bcrypt = require('bcrypt')
-const Joi = require("joi")
-const User = require("../models/users");
-const Comment = require("../models/comment")
-const jwt = require("jsonwebtoken");
+import express from "express"
+import moment from "moment";
+import User from "../models/users"
+import Comment from "../models/comment"
+import jwt from "jsonwebtoken"
 //게시판 모델
-const Boards = require("../models/board");
-const authMiddleware = require("../middlewares/auth-middleware");
+import Boards from "../models/board"
+import authMiddleware from "../middlewares/auth-middleware";
 const key = process.env.SECERTKEY
 
 
 //라우터 생성
+
 const router = express.Router();
 
 
