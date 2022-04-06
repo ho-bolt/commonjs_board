@@ -1,12 +1,10 @@
 import express from "express"
 
 import userVaild from "../helpers/userValid"
-import * as dotenv from 'dotenv'
 import authMiddleware from "../middlewares/auth-middleware";
-import { getJoin, getAuth, postLogin, postAuth, checkAuth } from "../controller/userController"
-dotenv.config()
-const salt = process.env.SALTNUM
-const secretkey = process.env.SECERTKEY
+import { getJoin, getAuth, postJoin, postAuth, checkAuth } from "../controller/userController"
+
+
 
 
 //라우터 생성
@@ -30,7 +28,7 @@ router.get("/auth", getAuth)
 
 
 //회원가입
-router.post("/join", userVaild.PostUser, postLogin)
+router.post("/join", userVaild.PostUser, postJoin)
 // #swagger.tags = ["User"]
 // #swagger.summary = "회원가입 하기"
 

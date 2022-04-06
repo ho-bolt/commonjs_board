@@ -20,7 +20,6 @@ crossorigin="anonymous"></script>
 
 
 <title>항해 99 블로그 상세내용</title>
-
 <style>
   
 </style>
@@ -81,8 +80,7 @@ crossorigin="anonymous"></script>
                           
                         $(`#up_com_btn${cs}`).show() 
                         $(`#de_com_btn${cs}`).show()   
-                      }
-                                                          
+                      }                                                        
                    }
                       
                   }
@@ -169,7 +167,7 @@ crossorigin="anonymous"></script>
                  <div id="write_form_detail">
 
                  </div>
-               
+                      
                    
             </form>
             <form name="comment_post" method="post" action="" class="make_comment">
@@ -190,9 +188,9 @@ crossorigin="anonymous"></script>
                   </div>
                   <div class="message-body" id="comment_body">
                       <%=comments[i].content %> 
+
                       <button id="up_com_btn<%=comments[i].nickName%>"  class="button is-warning is-light box_btn " onclick="open_input(),sendId('<%=comments[i].commentId%>')">수정</button>  
-                      <button id="de_com_btn<%=comments[i].nickName%>" type="button" class="button is-danger is-light box_btn " onclick="delete_comment('<%=comments[i].commentId %>','<%=comments[i].boardId%>')">삭제</button>
-                     
+                      <button id="de_com_btn<%=comments[i].nickName%>" type="button" class="button is-danger is-light box_btn " onclick="delete_comment('<%=comments[i].commentId %>','<%=comments[i].boardId%>')">삭제</button>     
                   </div>
                   <div class="message-header">
                       작성 시간
@@ -208,5 +206,3 @@ crossorigin="anonymous"></script>
 </body>
 
 </html>
-
-

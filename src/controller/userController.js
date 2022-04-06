@@ -2,10 +2,12 @@ import User from "../models/users";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
 import { key, saltNum } from "../env";
+
 export const getJoin = (req, res) => res.render('join');
 export const getAuth = (req, res) => res.render("auth")
 
-export const postLogin = async (req, res) => {
+export const postJoin = async (req, res) => {
+
     const { userEmail, nickName, password, confirmPassword } = req.body;
     //비번 확인
     if (password !== confirmPassword) {
@@ -25,11 +27,18 @@ export const postLogin = async (req, res) => {
         });
         return;
     }
-    const hashedPw = bcrypt.hashSync(password, saltNum);
+    const hashedPw = bcrypt.hashSync(password, 10);
+    try {
+        await User.create({
+            userEmail,
+            nickName,
+            password: hashedPw
+        });
+        res.status(201).json({ success: true, msg: "회원가입 완료!" })
+    } catch (error) {
+        res.status(400).json({ success: false, msg: "에러발생!" })
+    }
 
-    const user = new User({ userEmail, nickName, password: hashedPw });
-    await user.save()
-    res.status(201).json({ success: true, msg: "회원가입 완료!" })
 }
 
 
@@ -58,6 +67,8 @@ export const postAuth = async (req, res) => {
     //입력한 이메일을 db에서 찾아서 user에 넣어줘
 
     const user = await User.findOne({ userEmail });
+    res.locals.userNickname = user.nickName
+    console.log("@@@", res.locals.userNickname)
     //토큰 생성
     const token = jwt.sign({ userId: user.userNum, nickName: user.nickName }, key)
 
