@@ -1,11 +1,12 @@
+import * as dotenv from 'dotenv'
+dotenv.config()
+
 import express from "express";
 import connect from "./db"
 import helmet from "helmet";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import swaggerFile from "./swagger-output";
-import * as dotenv from 'dotenv'
-dotenv.config()
 
 const port = process.env.PORT;
 const app = express()

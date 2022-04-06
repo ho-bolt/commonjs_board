@@ -1,9 +1,17 @@
 import express from "express"
-
-
-//게시판 모델
-
-import { getBoard, getWrite, authCommentUser, deleteBoard, postComment, deleteComment, postBoard, getDetailBoard, updateComment, goUpdate, updateBoard } from "../controller/boardController"
+import {
+    getBoard,
+    getWrite,
+    authCommentUser,
+    deleteBoard,
+    postComment,
+    deleteComment,
+    postBoard,
+    getDetailBoard,
+    updateComment,
+    goUpdate,
+    updateBoard
+} from "../controller/boardController"
 import authMiddleware from "../middlewares/auth-middleware";
 
 
@@ -20,38 +28,24 @@ router.get("/", getBoard)
 // #swagger.tags = ["Board"]
 // #swagger.summary = "전체 게시글 조회 "
 
-
-
 //작성페이지
 router.get("/write", getWrite);
 // #swagger.tags = ["Board"]
 // #swagger.summary = "작성 페이지"
-
-
-
-
 
 // //게시글 삭제
 router.delete("/:boardId", deleteBoard)
 // #swagger.tags = ["Board"]
 // #swagger.summary = "게시글 삭제"
 
-
-
 //댓글 삭제
 router.delete("/comment/:commentId", deleteComment);
 
 
-
-
 // 게시글 상세 조회 
-
 router.get("/:boardId", getDetailBoard)
 // #swagger.tags = ["Board"]
 // #swagger.summary = "게시글 상세 조회"
-
-
-
 
 
 //댓글 수정
@@ -60,24 +54,16 @@ router.patch("/comment/:cid", authMiddleware, updateComment)
 // #swagger.summary = "댓글 수정"
 
 
-
-
 //수정하기로 가기 
 router.get("/write/:boardId", goUpdate)
 // #swagger.tags = ["Board"]
 // #swagger.summary = "수정하기로 가기 "
 
 
-//쿼리로 board.nickName을 같이 보내고 
-//만약 nickName이 게시된 글의 있는 nickName과 일치하면 버튼을 보여주고 아니면 안보여주고
-
-
 //게시글 수정 
 router.put("/:boardId", updateBoard)
 // #swagger.tags = ["Board"]
 // #swagger.summary = "게시글 수정"
-
-
 
 
 //로그인 확인 여부

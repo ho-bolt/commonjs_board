@@ -1,7 +1,5 @@
 import express from "express"
-import bcrypt from "bcrypt"
-import User from "../models/users"
-import jwt from "jsonwebtoken"
+
 import userVaild from "../helpers/userValid"
 import * as dotenv from 'dotenv'
 import authMiddleware from "../middlewares/auth-middleware";

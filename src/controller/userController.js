@@ -1,7 +1,7 @@
 import User from "../models/users";
 import bcrypt from "bcrypt";
-
-
+import jwt from "jsonwebtoken"
+import { key, saltNum } from "../env";
 export const getJoin = (req, res) => res.render('join');
 export const getAuth = (req, res) => res.render("auth")
 
@@ -25,7 +25,7 @@ export const postLogin = async (req, res) => {
         });
         return;
     }
-    const hashedPw = bcrypt.hashSync(password, salt);
+    const hashedPw = bcrypt.hashSync(password, saltNum);
 
     const user = new User({ userEmail, nickName, password: hashedPw });
     await user.save()
@@ -59,7 +59,7 @@ export const postAuth = async (req, res) => {
 
     const user = await User.findOne({ userEmail });
     //토큰 생성
-    const token = jwt.sign({ userId: user.userNum, nickName: user.nickName }, secretkey)
+    const token = jwt.sign({ userId: user.userNum, nickName: user.nickName }, key)
 
     res.status(201).send({
         success: true, token, msg: "로그인성공",
