@@ -1,6 +1,9 @@
-import { PORT, num } from "./env";
-import "./db";
-import app from "./server";
+// import { PORT, num } from "./env";
+const { PORT } = require("./env")
+require("./db")
+// import "./db";
+const app = require("./server")
+// import app from "./server";
 
 
 console.log("@@@", PORT)

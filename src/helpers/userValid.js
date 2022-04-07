@@ -1,4 +1,5 @@
-import Joi from "joi"
+// import Joi from "joi"
+const Joi = require("joi")
 const PostUserSchema = {
 
     PostUser: async (req, res, next) => {
@@ -21,6 +22,5 @@ const PostUserSchema = {
 
 
 
+module.exports = PostUserSchema
 
-
-export default PostUserSchema

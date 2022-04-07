@@ -1,13 +1,19 @@
-import * as dotenv from 'dotenv'
-dotenv.config()
-import express from "express";
-import connect from "./db"
-import helmet from "helmet";
-import cors from "cors";
-import swaggerUi from "swagger-ui-express";
-import swaggerFile from "./swagger-output";
+// import * as dotenv from 'dotenv'
 
-const port = process.env.PORT;
+const express = require("express")
+// import express from "express";
+const connect = require("./db")
+// import connect from "./db"
+const helmet = require("helmet")
+// import helmet from "helmet";
+const cors = require("cors")
+// import cors from "cors";
+const swaggerUi = require("swagger-ui-express")
+// import swaggerUi from "swagger-ui-express";
+const swaggerFile = require("./swagger-output.json")
+// import swaggerFile from "./swagger-output";
+require('dotenv').config()
+
 const app = express()
 
 //ejs 세팅 
@@ -52,4 +58,5 @@ app.get("/", (req, res) => {
     res.redirect('/board')
 })
 
-export default app;
+module.exports = app;
+// export default app;

@@ -2,9 +2,9 @@
   "name": "sp_blog",
   "version": "1.0.0",
   "main": "app.js",
-  "type":"module",
+ 
   "scripts": {
-    "dev": "nodemon --exec babel-node src/init.js",
+    "dev": "nodemon src/init.js",
     "test": "jest"
   },
   "keywords": [],

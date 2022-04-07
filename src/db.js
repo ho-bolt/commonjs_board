@@ -1,8 +1,12 @@
-import mongoose from "mongoose";
-import dotenv from "dotenv";
-dotenv.config()
+// import mongoose from "mongoose";
+const mongoose = require("mongoose")
+// import dotenv from "dotenv";
+// dotenv.config()
 
-export const DB = process.env.DB_URL;
+require('dotenv').config()
+
+
+// export const DB = process.env.DB_URL;
 
 const connect = () => {
     mongoose.connect('mongodb://localhost:27017/spa_blog', { ignoreUndefined: true }).catch((err) => {
