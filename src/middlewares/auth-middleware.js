@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken")
-const User = require("../models/users")
+const { User } = require("../../models")
 const key = process.env.SECERTKEY
 
 /*
@@ -23,9 +23,11 @@ module.exports = async (req, res, next) => {
         } else {
             try {
                 const [tokenType, tokenValue] = authorization.split(' ');
-                const { userId, nickName } = jwt.verify(tokenValue, key);
+                const { userNum, nickName } = jwt.verify(tokenValue, key);
+                console.log("!!!!!!!!", userNum, nickName)
                 //db에서 해당 userId와 맞는 유저 찾아서 그 유저를 locals에 넣어준다.
-                const existUser = await User.findOne({ userNum: Number(userId), nickName });
+                const existUser = await User.findOne({ where: { userNum, nickName } });
+                console.log("@@@@@@@@", existUser)
                 if (!existUser) res.locals.authResult = "11";
                 else {
                     res.locals.user = existUser;

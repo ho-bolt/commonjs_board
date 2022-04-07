@@ -1,7 +1,7 @@
-import Boards from "../models/board"
+import Boards from "../schemas/board"
 import moment from "moment";
-import User from "../models/users"
-import Comment from "../models/comment"
+const { User } = require("../../models")
+import Comment from "../schemas/comment"
 import jwt from "jsonwebtoken"
 const key = process.env.SECERTKEY
 
@@ -66,11 +66,12 @@ export const postBoard = async (req, res) => {
 
     const date = moment().format("YYYY-MM-DD HH:mm");
 
-    const { userId } = jwt.verify(authorization.split(" ")[1], key);
-    const { nickName } = await User.findOne({ userNum: Number(userId) })
+    const { userNum } = jwt.verify(authorization.split(" ")[1], key);
+    const { nickName } = await User.findOne({ where: { userNum } })
+    console.log("$$$$$$$$", nickName)
 
     const createBoards = await Boards.create({
-        userId,
+        userNum,
         title,
         content,
         nickName,

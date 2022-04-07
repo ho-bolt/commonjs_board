@@ -1,6 +1,5 @@
 import * as dotenv from 'dotenv'
 dotenv.config()
-
 import express from "express";
 import connect from "./db"
 import helmet from "helmet";

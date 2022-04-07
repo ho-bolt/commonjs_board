@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 dotenv.config()
 
 export const DB = process.env.DB_URL;
-console.log("#######", DB)
 
 const connect = () => {
     mongoose.connect('mongodb://localhost:27017/spa_blog', { ignoreUndefined: true }).catch((err) => {

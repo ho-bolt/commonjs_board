@@ -1,7 +1,5 @@
 import { PORT, num } from "./env";
 import "./db";
-import "./models/board"
-import "./models/users"
 import app from "./server";
 
 

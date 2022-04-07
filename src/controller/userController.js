@@ -1,6 +1,7 @@
-import User from "../models/users";
+const { User } = require("../../models")
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
+const { Op } = require("sequelize")
 import { key, saltNum } from "../env";
 
 export const getJoin = (req, res) => res.render('join');
@@ -17,9 +18,12 @@ export const postJoin = async (req, res) => {
         return;
     }
 
+    console.log("@@@0", User)
     //email, nickname 중복검사
     const existUser = await User.findOne({
-        $or: [{ userEmail }, { nickName }],
+        where: {
+            [Op.or]: [{ userEmail }, { nickName }]
+        },
     });
     if (existUser) {
         res.json({
@@ -50,7 +54,7 @@ export const postAuth = async (req, res) => {
         })
         return;
     }
-    const existUser = await User.findOne({ userEmail })
+    const existUser = await User.findOne({ where: { userEmail } })
     if (existUser === null) {
         res.json({
             success: false, msg: "해당하는 아이디가 혹은 비밀번호가 틀렸습니다."
@@ -66,11 +70,10 @@ export const postAuth = async (req, res) => {
     }
     //입력한 이메일을 db에서 찾아서 user에 넣어줘
 
-    const user = await User.findOne({ userEmail });
-    res.locals.userNickname = user.nickName
-    console.log("@@@", res.locals.userNickname)
+    const user = await User.findOne({ where: { userEmail } });
+    console.log("#####", user)
     //토큰 생성
-    const token = jwt.sign({ userId: user.userNum, nickName: user.nickName }, key)
+    const token = jwt.sign({ userNum: user.userNum, nickName: user.nickName }, key)
 
     res.status(201).send({
         success: true, token, msg: "로그인성공",
