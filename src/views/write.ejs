@@ -61,7 +61,7 @@ crossorigin="anonymous"></script>
 
     <%- include('header.ejs')%>
        
-        <!-- 첨 작성할 때  -->
+        <!-- 수정할때 -->
         <%if(locals.board ) {%>
         <div class="write_form">
             <form class="box" id="write_board" method="post" action="javascript:updateBoard(<%=board.boardId%>)">

@@ -52,12 +52,12 @@ export const goUpdate = async (req, res) => {
 }
 
 export const updateBoard = async (req, res) => {
-    const { user } = req
-    const nickName = user.nickName
-    const userEmail = user.userEmail
-    const userNum = user.userNum
+    const { boardId } = req.params;
+    const { title, content } = req.body;
+    const date = moment().format("YYYY-MM-DD HH:mm");
+    await Boards.updateOne({ boardId: Number(boardId) }, { $set: { title, content, date } })
 
-    res.json({ nickName, userEmail, userNum })
+    return res.json({ msg: "수정 완료!", success: true })
 }
 
 export const postBoard = async (req, res) => {
@@ -68,7 +68,6 @@ export const postBoard = async (req, res) => {
 
     const { userNum } = jwt.verify(authorization.split(" ")[1], key);
     const { nickName } = await User.findOne({ where: { userNum } })
-    console.log("$$$$$$$$", nickName)
 
     const createBoards = await Boards.create({
         userNum,
@@ -103,7 +102,7 @@ export const postComment = async (req, res) => {
     const { userId } = jwt.verify(authorization.split(" ")[1], key);
     const { nickName } = await User.findOne({ userNum: Number(userId) })
 
-    const comment = await Comment.create({ boardId, content, nickName, date })
+    await Comment.create({ boardId, content, nickName, date })
 
     res.status(201).json({ success: true, msg: "댓글 등록!" })
 }

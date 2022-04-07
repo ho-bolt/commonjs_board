@@ -31,8 +31,6 @@ function writeBoard() {
 
 function updateBoard(boardId) {
     let title = $('#title').val()
-    let userName = $('#userName').val()
-    let password = $('#password').val()
     let content = $('#content').val()
 
 
@@ -41,8 +39,6 @@ function updateBoard(boardId) {
         url: "/board/" + boardId,
         data: {
             title,
-            userName,
-            password,
             content
         },
         success: function (response) {
