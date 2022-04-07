@@ -11,4 +11,4 @@ function handleListening() {
     console.log(`서버 킴 localhost :${PORT}`)
 }
 
-app.listen(PORT, handleListening);
+app.listen(3000, handleListening);
